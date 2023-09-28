@@ -13,4 +13,7 @@ abstract class AppColors {
   static const oceanGreen = Color(0xff53b175);
   static const timberGreen = Color(0xff3e423f);
   static const blackCurrant = Color(0xff181619);
+  static const honeydew = Color(0xffF2F3f2);
+  static const lightGray = Color(0xffe2e2e2);
+  static const orange = Color(0xfff3603f);
 }

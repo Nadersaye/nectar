@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nectar/core/utils/app_routes.dart';
+import 'package:nectar/core/utils/colors.dart';
 
 void main() {
   runApp(const NectarApp());
@@ -10,11 +12,15 @@ class NectarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScreenUtilInit(
-      designSize: Size(414, 896),
+    return ScreenUtilInit(
+      designSize: const Size(414, 896),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(),
+      child: MaterialApp.router(
+        routerConfig: AppRoutes.router,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(primaryColor: AppColors.oceanGreen),
+      ),
     );
   }
 }
