@@ -12,7 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'please enter your search words, must not be empty';
+          return 'please enter your search words , must not be empty';
         }
         return null;
       },
