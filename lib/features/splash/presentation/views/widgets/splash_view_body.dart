@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:nectar/core/utils/app_routes.dart';
 import '../../../../../core/utils/colors.dart';
 import 'splash_view_banner.dart';
 
@@ -72,7 +74,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   void initNavigationHome() {
-    /*Future.delayed(const Duration(seconds: 7), () {
-    });*/
+    Future.delayed(const Duration(seconds: 7), () {
+      GoRouter.of(context).push(AppRoutes.productDetailsView);
+    });
   }
 }

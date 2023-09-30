@@ -19,7 +19,8 @@ class NectarApp extends StatelessWidget {
       child: MaterialApp.router(
         routerConfig: AppRoutes.router,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(primaryColor: AppColors.oceanGreen),
+        theme:
+            ThemeData(primaryColor: AppColors.oceanGreen, fontFamily: 'Gilroy'),
       ),
     );
   }

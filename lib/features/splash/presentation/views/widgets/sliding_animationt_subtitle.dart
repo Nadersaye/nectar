@@ -10,8 +10,10 @@ class SlidingAnimationSubtitle extends StatelessWidget {
     return SlideTransition(
       position: animationSubtitle,
       child: Text('online groceries',
-          style: Styles.style14.copyWith(
-              color: AppColors.magnoliaWhite, decoration: TextDecoration.none)),
+          style: Styles.styleGrey14.copyWith(
+              color: AppColors.magnoliaWhite,
+              decoration: TextDecoration.none,
+              letterSpacing: 2.25)),
     );
   }
 }

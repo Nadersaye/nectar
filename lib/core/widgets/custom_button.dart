@@ -24,7 +24,8 @@ class CustomActionButton extends StatelessWidget {
         child: Center(
           child: Text(
             buttonText,
-            style: Styles.style18.copyWith(color: AppColors.magnoliaWhite),
+            style: Styles.styleBlackRussian18
+                .copyWith(color: AppColors.magnoliaWhite),
           ),
         ),
       ),

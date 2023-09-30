@@ -10,8 +10,8 @@ class SlidingAnimationTitle extends StatelessWidget {
       position: animationTitle,
       child: Text(
         'nectar',
-        style: Styles.style48.copyWith(
-            fontWeight: FontWeight.w900, decoration: TextDecoration.none),
+        style: Styles.styleWhite48.copyWith(
+            fontWeight: FontWeight.w700, decoration: TextDecoration.none),
       ),
     );
   }

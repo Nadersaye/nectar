@@ -16,4 +16,7 @@ abstract class AppColors {
   static const honeydew = Color(0xffF2F3f2);
   static const lightGray = Color(0xffe2e2e2);
   static const orange = Color(0xfff3603f);
+  static const feldgrau = Color(0xff4C4F4D);
+
+  //Feldgrau
 }
