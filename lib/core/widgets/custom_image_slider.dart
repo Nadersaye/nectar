@@ -2,8 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/constants.dart';
 
-class CustomPageView extends StatefulWidget {
-  const CustomPageView(
+// ignore: must_be_immutable
+class CustomImageSlider extends StatefulWidget {
+  const CustomImageSlider(
       {super.key,
       required this.items,
       required this.aspectRactio,
@@ -14,10 +15,10 @@ class CustomPageView extends StatefulWidget {
   final double height;
   final bool autoNavigate;
   @override
-  State<CustomPageView> createState() => _CustomPageViewState();
+  State<CustomImageSlider> createState() => _CustomImageSliderState();
 }
 
-class _CustomPageViewState extends State<CustomPageView> {
+class _CustomImageSliderState extends State<CustomImageSlider> {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
@@ -35,11 +36,15 @@ class _CustomPageViewState extends State<CustomPageView> {
             autoPlayCurve: Curves.fastOutSlowIn,
             enlargeCenterPage: true,
             onPageChanged: (value, reason) {
-              setState(() {
-                currentIndex = value;
-              });
+              changeCurrentIndexValue(value);
             },
             scrollDirection: Axis.horizontal,
             scrollPhysics: const BouncingScrollPhysics()));
+  }
+
+  void changeCurrentIndexValue(int value) {
+    setState(() {
+      currentIndex = value;
+    });
   }
 }

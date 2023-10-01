@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/widgets/custom_textformfield.dart';
+import '../widgets/shop widgets/custom_exclusive_offer.dart';
 import '../widgets/shop widgets/shop_view_appbar.dart';
+import '../widgets/shop widgets/toggling_offers_imgae.dart';
 
 class ShopView extends StatelessWidget {
   const ShopView({super.key, required this.searchController});
@@ -11,7 +13,7 @@ class ShopView extends StatelessWidget {
       slivers: [
         const SliverToBoxAdapter(
             child: ShopViewAppBar(
-          location: '',
+          location: 'fayoum ,sanhour',
         )),
         const SliverToBoxAdapter(
           child: SizedBox(
@@ -27,6 +29,17 @@ class ShopView extends StatelessWidget {
             height: 20,
           ),
         ),
+        const SliverToBoxAdapter(
+          child: ToggolingOffersImage(
+            items: [],
+          ),
+        ),
+        const SliverToBoxAdapter(
+          child: SizedBox(
+            height: 20,
+          ),
+        ),
+        const SliverToBoxAdapter(child: CustomExclusiveOffer()),
       ],
     );
   }

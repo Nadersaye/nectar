@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/features/home/presentation/views/widgets/product%20details%20widgets/custom_image_view.dart';
+import 'package:nectar/core/widgets/custom_image_slider.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/widgets/custom_dot_indicator.dart';
 
@@ -26,7 +26,7 @@ class _TogglingProductImagesState extends State<TogglingProductImages> {
         children: [
           Align(
             alignment: Alignment.topCenter,
-            child: CustomPageView(
+            child: CustomImageSlider(
               items: widget.items,
               aspectRactio: 3.3 / 2,
               height: 200,

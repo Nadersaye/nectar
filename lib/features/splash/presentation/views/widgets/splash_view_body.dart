@@ -53,8 +53,8 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   void initLogoAnimation() {
-    animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 4));
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 2500));
     logoAnimation = Tween<Offset>(begin: const Offset(-1, 0), end: Offset.zero)
         .animate(
             CurvedAnimation(parent: animationController, curve: Curves.linear));
@@ -74,7 +74,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   void initNavigationHome() {
-    Future.delayed(const Duration(seconds: 7), () {
+    Future.delayed(const Duration(seconds: 5), () {
       GoRouter.of(context).push(AppRoutes.productDetailsView);
     });
   }
