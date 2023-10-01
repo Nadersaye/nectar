@@ -1,1 +1,1 @@
-
+int currentIndex = 0;

@@ -78,7 +78,6 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
               )),
         ),
         TogglingProductImages(
-          pageController: pageController,
           items: items,
         ),
         Padding(

@@ -1,17 +1,12 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:nectar/core/utils/constants.dart';
 
-import '../../../../../../core/utils/colors.dart';
+import '../utils/colors.dart';
 
 class CustomDotIndicator extends StatelessWidget {
-  const CustomDotIndicator(
-      {super.key,
-      required this.pageController,
-      required this.items,
-      required this.currentIndex});
-  final PageController pageController;
+  const CustomDotIndicator({super.key, required this.items});
   final List<String> items;
-  final int currentIndex;
   @override
   Widget build(BuildContext context) {
     return DotsIndicator(

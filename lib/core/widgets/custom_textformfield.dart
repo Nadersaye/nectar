@@ -19,6 +19,8 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       controller: searchController,
       decoration: InputDecoration(
+          enabledBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
           fillColor: AppColors.honeydew,
           hintText: 'Search store',
           contentPadding: const EdgeInsets.all(15),

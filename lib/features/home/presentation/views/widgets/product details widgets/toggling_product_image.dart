@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/features/home/presentation/views/widgets/product%20details%20widgets/custom_image_view.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/widgets/custom_dot_indicator.dart';
-import '../../../../../../core/widgets/custom_page_view.dart';
 
 class TogglingProductImages extends StatefulWidget {
-  const TogglingProductImages(
-      {super.key, required this.pageController, required this.items});
-  final PageController pageController;
+  const TogglingProductImages({super.key, required this.items});
   final List<String> items;
 
   @override
@@ -14,11 +12,10 @@ class TogglingProductImages extends StatefulWidget {
 }
 
 class _TogglingProductImagesState extends State<TogglingProductImages> {
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 290,
       width: double.infinity,
       decoration: const BoxDecoration(
         color: AppColors.honeydew,
@@ -31,16 +28,16 @@ class _TogglingProductImagesState extends State<TogglingProductImages> {
             alignment: Alignment.topCenter,
             child: CustomPageView(
               items: widget.items,
-              pageController: widget.pageController,
+              aspectRactio: 3.3 / 2,
+              height: 200,
+              autoNavigate: false,
             ),
           ),
           Positioned(
               bottom: 30,
               right: MediaQuery.of(context).size.width / 2 - 30,
               child: CustomDotIndicator(
-                pageController: widget.pageController,
                 items: widget.items,
-                currentIndex: currentIndex,
               ))
         ],
       ),
