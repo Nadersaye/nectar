@@ -3,13 +3,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
 import 'package:nectar/features/home/presentation/views/widgets/product%20details%20widgets/custom_appbar_icon.dart';
 import 'package:nectar/features/home/presentation/views/widgets/product%20details%20widgets/toggling_product_image.dart';
+import 'product_details_appbar.dart';
 
 class ProductDetailsBody extends StatefulWidget {
   const ProductDetailsBody({super.key});
@@ -24,6 +23,8 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
   final PageController pageController = PageController(initialPage: 0);
   late CarouselController carouselController;
   static const double price = 4.99;
+  bool isOfferProduct = false;
+  double offerPrice = 3.2;
   int currentIndex = 0;
   bool changedIcon = false;
   List<String> items = [
@@ -49,34 +50,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
     return ListView(
       physics: const BouncingScrollPhysics(),
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Container(
-              width: double.infinity,
-              height: 60,
-              color: AppColors.honeydew,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomIcon(
-                    icon: const Icon(
-                      FontAwesomeIcons.angleLeft,
-                      color: AppColors.blackRussian,
-                    ),
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    },
-                  ),
-                  CustomIcon(
-                    icon: const Icon(
-                      FontAwesomeIcons.arrowUpFromBracket,
-                      color: AppColors.blackRussian,
-                    ),
-                  ),
-                ],
-              )),
-        ),
+        const ProductDetailsAppbar(),
         TogglingProductImages(
           items: items,
         ),
@@ -139,18 +113,41 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
-                                text: 'Price : ',
-                                style: Styles.styleBlackRussian18.copyWith(
-                                    color: AppColors.grey,
-                                    fontWeight: FontWeight.w400)),
-                            TextSpan(
-                                text: r'$' '$price',
-                                style: Styles.styleBlackRussian18)
-                          ]),
-                        ),
+                        AnimatedCrossFade(
+                            firstChild: RichText(
+                              text: TextSpan(children: [
+                                TextSpan(
+                                    text: 'Price : ',
+                                    style: Styles.styleBlackRussian18.copyWith(
+                                        color: AppColors.grey,
+                                        fontWeight: FontWeight.w400)),
+                                TextSpan(
+                                    text: r'$' '$price',
+                                    style: Styles.styleBlackRussian18)
+                              ]),
+                            ),
+                            secondChild: RichText(
+                                text: TextSpan(
+                                    text: 'Price : ',
+                                    style: Styles.styleBlackRussian18.copyWith(
+                                        color: AppColors.grey,
+                                        fontWeight: FontWeight.w400),
+                                    children: [
+                                  TextSpan(
+                                    text: '\$ ' '$price',
+                                    style: Styles.styleBlackRussian18.copyWith(
+                                        decoration: TextDecoration.overline),
+                                  ),
+                                  TextSpan(
+                                    text: '\n \$' '$offerPrice',
+                                    style: Styles.styleBlackRussian18.copyWith(
+                                        decoration: TextDecoration.overline),
+                                  ),
+                                ])),
+                            crossFadeState: isOfferProduct
+                                ? CrossFadeState.showSecond
+                                : CrossFadeState.showFirst,
+                            duration: Duration.zero),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [

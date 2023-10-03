@@ -5,9 +5,14 @@ import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/widgets/custom_dot_indicator.dart';
 
 class ToggolingOffersImage extends StatefulWidget {
-  const ToggolingOffersImage({super.key, required this.items});
+  const ToggolingOffersImage(
+      {super.key,
+      required this.items,
+      required this.fitImage,
+      required this.spaceBottom});
   final List<String> items;
-
+  final BoxFit fitImage;
+  final double spaceBottom;
   @override
   State<ToggolingOffersImage> createState() => _ToggolingOffersImageState();
 }
@@ -33,11 +38,13 @@ class _ToggolingOffersImageState extends State<ToggolingOffersImage> {
                 aspectRactio: 367 / 115,
                 height: double.infinity,
                 autoNavigate: true,
+                fitImage: widget.fitImage,
               ),
             ),
             Positioned(
-                bottom: 12,
-                right: MediaQuery.of(context).size.width / 2 - 30,
+                bottom: widget.spaceBottom,
+                left: MediaQuery.of(context).size.width / 2 -
+                    (widget.items.length * 18),
                 child: CustomDotIndicator(
                   items: widget.items,
                 ))

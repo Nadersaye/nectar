@@ -16,9 +16,13 @@ class CustomTextFormField extends StatelessWidget {
         }
         return null;
       },
+      onTapOutside: (event) {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
       onChanged: onChanged,
       controller: searchController,
       decoration: InputDecoration(
+          filled: true,
           enabledBorder: InputBorder.none,
           disabledBorder: InputBorder.none,
           fillColor: AppColors.honeydew,

@@ -31,6 +31,7 @@ class _TogglingProductImagesState extends State<TogglingProductImages> {
               aspectRactio: 3.3 / 2,
               height: 200,
               autoNavigate: false,
+              fitImage: BoxFit.contain,
             ),
           ),
           Positioned(

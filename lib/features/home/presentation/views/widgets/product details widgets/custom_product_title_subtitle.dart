@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
+import 'package:nectar/core/widgets/custom_product_name.dart';
 import '../../../../../../core/utils/styles.dart';
 
 class CustomProductTitleAndSubtitle extends StatelessWidget {
@@ -10,13 +11,8 @@ class CustomProductTitleAndSubtitle extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 7),
-          child: Text(
-            'Naturel Red Apple',
-            style: Styles.styleBlackRussian18,
-          ),
-        ),
+        const Padding(
+            padding: EdgeInsets.only(top: 7), child: CustomProductName()),
         const SizedBox(
           height: 10,
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nectar/features/home/presentation/views/screens/product_details_view.dart';
+import '../../features/home/presentation/views/screens/home_view.dart';
 import '../../features/splash/presentation/views/screens/splash_view.dart';
 
 abstract class AppRoutes {
@@ -21,6 +22,13 @@ abstract class AppRoutes {
           return const ProductDetailsView();
         },
       ),
+      GoRoute(
+        path: homeView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const HomeView();
+        },
+      ),
+      //HomeView
       /*
       GoRoute(
         path: bookDetailsView,

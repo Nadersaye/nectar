@@ -17,6 +17,7 @@ abstract class AppColors {
   static const lightGray = Color(0xffe2e2e2);
   static const orange = Color(0xfff3603f);
   static const feldgrau = Color(0xff4C4F4D);
-
-  //Feldgrau
+  static const fedgrau = Color(0x00000000);
+  static const lightRed = Color.fromARGB(255, 248, 157, 151);
+  static const mediumRed = Color.fromARGB(255, 218, 43, 30);
 }
