@@ -6,9 +6,9 @@ import 'package:nectar/core/widgets/custom_product_name.dart';
 import '../../../../../../core/utils/styles.dart';
 import 'custom_add_button.dart';
 
-class CustomOfferCard extends StatelessWidget {
-  const CustomOfferCard({super.key});
-
+class CustomProductCard extends StatelessWidget {
+  const CustomProductCard({super.key, required this.isOffer});
+  final bool isOffer;
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -37,15 +37,19 @@ class CustomOfferCard extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.asset('assets/images/apple.png'),
-                  PositionedDirectional(
-                    start: 0,
-                    top: 0,
-                    child: Container(
-                      color: AppColors.lightRed,
-                      child: Text(
-                        '20 %',
-                        style: Styles.styleGrey13
-                            .copyWith(color: AppColors.mediumRed),
+                  AnimatedOpacity(
+                    opacity: isOffer ? 1 : 0,
+                    duration: Duration.zero,
+                    child: PositionedDirectional(
+                      start: 0,
+                      top: 0,
+                      child: Container(
+                        color: AppColors.lightRed,
+                        child: Text(
+                          '20 %',
+                          style: Styles.styleGrey13
+                              .copyWith(color: AppColors.mediumRed),
+                        ),
                       ),
                     ),
                   )
@@ -61,16 +65,27 @@ class CustomOfferCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RichText(
-                    text: TextSpan(children: [
-                  TextSpan(text: '\$ 2.88', style: Styles.styleBlackRussian18),
-                  TextSpan(
-                    text: '\n   3.88',
-                    style: Styles.styleBlackRussian18.copyWith(
-                        decoration: TextDecoration.lineThrough,
-                        color: AppColors.grey),
-                  ),
-                ])),
+                AnimatedCrossFade(
+                    firstChild: RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                          text: '\$ 2.88', style: Styles.styleBlackRussian18),
+                      TextSpan(
+                        text: '\n   3.88',
+                        style: Styles.styleBlackRussian18.copyWith(
+                            decoration: TextDecoration.lineThrough,
+                            color: AppColors.grey),
+                      ),
+                    ])),
+                    secondChild: RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                          text: '\$ 2.88', style: Styles.styleBlackRussian18),
+                    ])),
+                    crossFadeState: isOffer
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    duration: Duration.zero),
                 const CustomAddButton()
               ],
             )

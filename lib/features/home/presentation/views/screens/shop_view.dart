@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/widgets/custom_textformfield.dart';
 import '../widgets/shop widgets/custom_exclusive_offer.dart';
-import '../widgets/shop widgets/shop_offer_list_view.dart';
+import '../widgets/shop widgets/shop_product_list_view.dart';
 import '../widgets/shop widgets/shop_view_appbar.dart';
 import '../widgets/shop widgets/toggling_offers_imgae.dart';
 
@@ -38,10 +38,28 @@ class ShopView extends StatelessWidget {
               spaceBottom: 9,
             ),
           ),
-          const SliverToBoxAdapter(child: CustomExclusiveOffer()),
           const SliverToBoxAdapter(
-            child: OfferListView(),
-          )
+              child: ProductTitleRow(
+            title: 'Exclusive Offer',
+          )),
+          const SliverToBoxAdapter(
+            child: ProductsListView(
+              isOffer: true,
+            ),
+          ),
+          const SliverToBoxAdapter(
+              child: ProductTitleRow(
+            title: 'Best Selling',
+          )),
+          const SliverToBoxAdapter(
+            child: ProductsListView(
+              isOffer: false,
+            ),
+          ),
+          const SliverToBoxAdapter(
+              child: ProductTitleRow(
+            title: 'Groceries',
+          )),
         ],
       ),
     );

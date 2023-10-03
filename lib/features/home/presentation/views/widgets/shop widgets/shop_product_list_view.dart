@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/features/home/presentation/views/widgets/shop%20widgets/custom_offer_card.dart';
+import 'package:nectar/features/home/presentation/views/widgets/shop%20widgets/custom_product_card.dart';
 
-class OfferListView extends StatelessWidget {
-  const OfferListView({super.key});
-
+class ProductsListView extends StatelessWidget {
+  const ProductsListView({super.key, required this.isOffer});
+  final bool isOffer;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -14,9 +14,11 @@ class OfferListView extends StatelessWidget {
             const EdgeInsetsDirectional.only(start: 25, top: 10, bottom: 10),
         physics: const BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
-          return const Padding(
-            padding: EdgeInsetsDirectional.only(end: 15),
-            child: CustomOfferCard(),
+          return Padding(
+            padding: const EdgeInsetsDirectional.only(end: 15),
+            child: CustomProductCard(
+              isOffer: isOffer,
+            ),
           );
         },
       ),

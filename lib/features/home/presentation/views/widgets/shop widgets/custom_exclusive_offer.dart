@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
 
-class CustomExclusiveOffer extends StatelessWidget {
-  const CustomExclusiveOffer({super.key});
-
+class ProductTitleRow extends StatelessWidget {
+  const ProductTitleRow({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,7 +14,7 @@ class CustomExclusiveOffer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Exclusive Offer',
+            title,
             style: Styles.stylebBackRussian24,
           ),
           GestureDetector(

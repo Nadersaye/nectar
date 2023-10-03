@@ -25,3 +25,20 @@ class NectarApp extends StatelessWidget {
     );
   }
 }
+//Grap & Go
+//Handcrafted by Gournet #
+//Meat,Poultry$ Seafood 
+//Bakery
+//Dairy &Eggs
+//Deli
+//Fruits $ vegetables
+//Platters&boxes #
+//Health & Beauty
+//Baby
+//Food Cupboard
+//Desserts & Snacks
+//Household
+//Freezer
+//Pet
+//Kitchen, Dinning&Home
+//Cooking Oil& Ghee
