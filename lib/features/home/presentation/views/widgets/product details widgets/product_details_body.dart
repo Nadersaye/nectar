@@ -2,13 +2,11 @@ import 'package:animated_digit/animated_digit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
-import 'package:nectar/features/home/presentation/views/widgets/product%20details%20widgets/custom_appbar_icon.dart';
-import 'package:nectar/features/home/presentation/views/widgets/product%20details%20widgets/custom_product_price_widget.dart';
 import 'package:nectar/features/home/presentation/views/widgets/product%20details%20widgets/toggling_product_image.dart';
+import '../../../../../../core/widgets/increase_decrease_product_count.dart';
 import 'product_details_appbar.dart';
 
 class ProductDetailsBody extends StatefulWidget {
@@ -66,79 +64,12 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                 const SizedBox(
                   height: 30,
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomIcon(
-                      icon: const Icon(Icons.remove),
-                      size: 23.r,
-                      onPressed: () {
-                        if (countController.value != 0) {
-                          countController.minusValue(1);
-                          priceController.minusValue(price);
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      width: 20.w,
-                    ),
-                    Container(
-                      width: 46,
-                      height: 46,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.lightGray),
-                          borderRadius: BorderRadius.circular(17.r)),
-                      child: Center(
-                        child: AnimatedDigitWidget(
-                          controller: countController,
-                          textStyle: Styles.styleBlackRussian18,
-                          enableSeparator: true,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20.w,
-                    ),
-                    CustomIcon(
-                      icon: Icon(
-                        Icons.add,
-                        color: AppColors.oceanGreen,
-                        size: 23.w,
-                      ),
-                      onPressed: () {
-                        countController.addValue(1);
-                        priceController.addValue(price);
-                      },
-                    ),
-                    const Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomProductPrice(
-                            price: price,
-                            offerPrice: offerPrice,
-                            isOfferProduct: isOfferProduct),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Total : ',
-                              style: Styles.styleBlackRussian18.copyWith(
-                                  color: AppColors.grey,
-                                  fontWeight: FontWeight.w400),
-                            ),
-                            AnimatedDigitWidget(
-                              controller: priceController,
-                              textStyle: Styles.styleBlackRussian18,
-                              fractionDigits: 2,
-                              enableSeparator: true,
-                              prefix: '\$',
-                            ),
-                          ],
-                        )
-                      ],
-                    )
-                  ],
+                IncreaseAndDecreaseProductCount(
+                  countController: countController,
+                  priceController: priceController,
+                  price: price,
+                  isOfferProduct: isOfferProduct,
+                  offerPrice: offerPrice,
                 ),
                 const SizedBox(
                   height: 30,

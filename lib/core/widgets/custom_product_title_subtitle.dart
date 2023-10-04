@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/widgets/custom_product_name.dart';
-import '../../../../../../core/utils/styles.dart';
+import '../utils/styles.dart';
 
 class CustomProductTitleAndSubtitle extends StatelessWidget {
   const CustomProductTitleAndSubtitle({super.key});
@@ -10,6 +10,7 @@ class CustomProductTitleAndSubtitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         const Padding(
             padding: EdgeInsets.only(top: 7), child: CustomProductName()),

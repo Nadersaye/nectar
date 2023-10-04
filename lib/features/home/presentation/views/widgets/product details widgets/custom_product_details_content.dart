@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/utils/colors.dart';
 import 'custom_appbar_icon.dart';
-import 'custom_product_title_subtitle.dart';
+import '../../../../../../core/widgets/custom_product_title_subtitle.dart';
 
 class ProductDetailsContent extends StatefulWidget {
   const ProductDetailsContent({super.key});
