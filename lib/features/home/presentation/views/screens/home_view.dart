@@ -1,7 +1,12 @@
+import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
-import 'package:nectar/features/home/presentation/views/screens/shop_view.dart';
+import 'package:nectar/features/home/presentation/views/screens/cart_view.dart';
+
+import '../../../data/models/cart_item_model.dart';
+import '../widgets/cart widgets/custom_cart_listview.dart';
+import '../widgets/cart widgets/custom_listview_item.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -11,9 +16,11 @@ class HomeView extends StatelessWidget {
     TextEditingController searchController = TextEditingController();
     return SafeArea(
       child: Scaffold(
-        body: ShopView(
+        body: const CartView()
+        /*ShopView(
           searchController: searchController,
-        ),
+        )*/
+        ,
         bottomNavigationBar: BottomNavigationBar(
             selectedItemColor: AppColors.oceanGreen,
             unselectedItemColor: AppColors.blackRussian,

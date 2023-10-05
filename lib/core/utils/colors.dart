@@ -19,6 +19,9 @@ abstract class AppColors {
   static const feldgrau = Color(0xff4C4F4D);
   static const fedgrau = Color(0x00000000);
   static const pinkSwan = Color(0xffB3B3B3);
+  static const deepGreen = Color(0xff489e67);
   static const lightRed = Color.fromARGB(255, 248, 157, 151);
   static const mediumRed = Color.fromARGB(255, 218, 43, 30);
+  static const grayHanin = Color.fromARGB(255, 204, 202, 202);
 }
+//#489e67

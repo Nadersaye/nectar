@@ -19,7 +19,10 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const CustomProductTitleAndSubtitle(),
+        const CustomProductTitleAndSubtitle(
+          title: '',
+          subTitle: '',
+        ),
         CustomIcon(
           onPressed: () {
             setState(() {

@@ -24,46 +24,53 @@ class IncreaseAndDecreaseProductCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 46,
-          height: 46,
+          width: 47.w,
           decoration: BoxDecoration(
               border: Border.all(color: AppColors.lightGray),
               borderRadius: BorderRadius.circular(17.r)),
-          child: CustomIcon(
-              icon: const Icon(Icons.remove),
-              size: 23,
-              onPressed: decreaseProductsNumber),
+          child: AspectRatio(
+            aspectRatio: 1 / 1,
+            child: CustomIcon(
+                icon: const Icon(Icons.remove),
+                size: 23,
+                onPressed: decreaseProductsNumber),
+          ),
         ),
         const SizedBox(
-          width: 20,
+          width: 10,
         ),
-        AnimatedDigitWidget(
-          controller: countController,
-          textStyle: Styles.styleBlackRussian18,
-          enableSeparator: true,
+        Center(
+          child: AnimatedDigitWidget(
+            controller: countController,
+            textStyle: Styles.styleBlackRussian18,
+            enableSeparator: true,
+          ),
         ),
-        SizedBox(
-          width: 20.w,
+        const SizedBox(
+          width: 10,
         ),
         Container(
-          width: 46,
-          height: 46,
+          width: 46.w,
           decoration: BoxDecoration(
               border: Border.all(color: AppColors.lightGray),
               borderRadius: BorderRadius.circular(17.r)),
-          child: CustomIcon(
-              icon: Icon(
-                Icons.add,
-                color: AppColors.oceanGreen,
-                size: 23.w,
-              ),
-              onPressed: increaseProductsNumber),
+          child: AspectRatio(
+            aspectRatio: 1 / 1,
+            child: CustomIcon(
+                icon: const Icon(
+                  Icons.add,
+                  color: AppColors.oceanGreen,
+                  size: 23,
+                ),
+                onPressed: increaseProductsNumber),
+          ),
         ),
         const Spacer(),
         Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomProductPrice(

@@ -56,7 +56,9 @@ class CustomProductCard extends StatelessWidget {
                 ],
               ),
             ),
-            const CustomProductName(),
+            const CustomProductName(
+              title: '',
+            ),
             Text(
               '1 kg, price',
               style: Styles.styleGrey14.copyWith(color: AppColors.grey),

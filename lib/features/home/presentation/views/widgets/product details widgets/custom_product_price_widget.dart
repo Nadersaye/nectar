@@ -32,14 +32,14 @@ class CustomProductPrice extends StatelessWidget {
                     color: AppColors.grey, fontWeight: FontWeight.w400),
                 children: [
               TextSpan(
-                text: '\$ ' '$price',
-                style: Styles.styleBlackRussian18
-                    .copyWith(decoration: TextDecoration.overline),
+                text: '\$ ' '$offerPrice',
+                style: Styles.styleBlackRussian18,
               ),
               TextSpan(
-                text: '\n \$' '$offerPrice',
-                style: Styles.styleBlackRussian18
-                    .copyWith(decoration: TextDecoration.overline),
+                text: '\n \$' '$price',
+                style: Styles.styleBlackRussian18.copyWith(
+                    decoration: TextDecoration.lineThrough,
+                    color: AppColors.grayHanin),
               ),
             ])),
         crossFadeState: isOfferProduct
