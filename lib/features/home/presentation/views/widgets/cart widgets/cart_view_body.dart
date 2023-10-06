@@ -9,6 +9,7 @@ import 'package:nectar/core/widgets/custom_divider.dart';
 import '../../../../data/models/cart_item_model.dart';
 import '../../../../data/models/expansion_tile_model.dart';
 import '../product details widgets/custom_appbar_icon.dart';
+import 'animated_dialog.dart';
 import 'custom_cart_listview.dart';
 
 class CartViewBody extends StatefulWidget {
@@ -122,9 +123,24 @@ class CartActionButton extends StatelessWidget {
                       ),
                     ),
                     const CustomTermsText(),
-                    const Padding(
-                      padding: EdgeInsets.all(25),
-                      child: CustomActionButton(buttonText: 'Place Order'),
+                    Padding(
+                      padding: const EdgeInsets.all(25),
+                      child: CustomActionButton(
+                        buttonText: 'Place Order',
+                        onTap: () {
+                          //AppRoutes.router.pop();
+                          /*animatedDialog(
+                              context: context,
+                              width: MediaQuery.of(context).size.width - 60);*/
+                          animatedDialog(
+                              context: context,
+                              width: MediaQuery.of(context).size.width - 60,
+                              massege: 'Something went tembly wrong.',
+                              title: 'Oops! Order Failed',
+                              text2: 'Try Again',
+                              animation: 'failure');
+                        },
+                      ),
                     ),
                   ],
                 ),
