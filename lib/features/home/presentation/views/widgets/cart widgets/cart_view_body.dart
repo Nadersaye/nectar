@@ -83,71 +83,60 @@ class _CartViewBodyState extends State<CartViewBody> {
       ],
     );
   }
+
+  void placeOrderFunction() {
+    //AppRoutes.router.pop();
+    /*animatedDialog(
+                              context: context,
+                              width: MediaQuery.of(context).size.width - 60);*/
+    animatedDialog(
+        context: context,
+        width: MediaQuery.of(context).size.width - 60,
+        massege: 'Something went tembly wrong.',
+        title: 'Oops! Order Failed',
+        text2: 'Try Again',
+        animation: 'failure');
+  }
+
+  void goToCheckoutFunction({
+    required List<ExpansionTileModel> expansionItems,
+    required dynamic Function() onTap,
+  }) {
+    debugPrint('clicked');
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 531,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+              color: AppColors.honeydew,
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(30), topLeft: Radius.circular(30))),
+          child: CheckoutBody(
+            expansionItems: expansionItems,
+            onTap: () {},
+          ),
+        );
+      },
+    );
+  }
 }
 
 class CartActionButton extends StatelessWidget {
   const CartActionButton({
     super.key,
     required this.expansionItems,
+    required this.onTap,
   });
   final List<ExpansionTileModel> expansionItems;
+  final Function() onTap;
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       CustomActionButton(
         buttonText: 'Go to Checkout',
-        onTap: () {
-          debugPrint('clicked');
-          showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return Container(
-                height: 531,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                    color: AppColors.honeydew,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30))),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CheckOutAppBar(),
-                    const Divider(
-                      height: 1,
-                      color: AppColors.lightGray,
-                    ),
-                    Expanded(
-                      child: CheckoutListView(
-                        expansionItems: expansionItems,
-                      ),
-                    ),
-                    const CustomTermsText(),
-                    Padding(
-                      padding: const EdgeInsets.all(25),
-                      child: CustomActionButton(
-                        buttonText: 'Place Order',
-                        onTap: () {
-                          //AppRoutes.router.pop();
-                          /*animatedDialog(
-                              context: context,
-                              width: MediaQuery.of(context).size.width - 60);*/
-                          animatedDialog(
-                              context: context,
-                              width: MediaQuery.of(context).size.width - 60,
-                              massege: 'Something went tembly wrong.',
-                              title: 'Oops! Order Failed',
-                              text2: 'Try Again',
-                              animation: 'failure');
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+        onTap: onTap,
       ),
       const Positioned(
         right: 22,
@@ -155,5 +144,42 @@ class CartActionButton extends StatelessWidget {
         child: CustomCheckoutPriceText(),
       ),
     ]);
+  }
+}
+
+class CheckoutBody extends StatelessWidget {
+  const CheckoutBody({
+    super.key,
+    required this.expansionItems,
+    required this.onTap,
+  });
+
+  final List<ExpansionTileModel> expansionItems;
+  final Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const CheckOutAppBar(),
+        const Divider(
+          height: 1,
+          color: AppColors.lightGray,
+        ),
+        Expanded(
+          child: CheckoutListView(
+            expansionItems: expansionItems,
+          ),
+        ),
+        const CustomTermsText(),
+        Padding(
+          padding: const EdgeInsets.all(25),
+          child: CustomActionButton(
+            buttonText: 'Place Order',
+            onTap: onTap,
+          ),
+        ),
+      ],
+    );
   }
 }
