@@ -2,13 +2,12 @@ import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
-import 'package:nectar/core/widgets/custom_button.dart';
 import '../../../../data/models/cart_item_model.dart';
 import '../../../../data/models/expansion_tile_model.dart';
 import 'animated_dialog.dart';
+import 'cart_action_button.dart';
 import 'checkout_body.dart';
 import 'custom_cart_listview.dart';
-import 'custom_checkout_price.dart';
 
 class CartViewBody extends StatefulWidget {
   const CartViewBody({super.key});
@@ -75,8 +74,13 @@ class _CartViewBodyState extends State<CartViewBody> {
         Padding(
           padding: const EdgeInsets.only(right: 25, left: 25, bottom: 25),
           child: CartActionButton(
-            expansionItems: expansionTileItems,
-          ),
+              expansionItems: expansionTileItems,
+              gotToCheckoutonTap: () {
+                goToCheckoutFunction(
+                  expansionItems: expansionTileItems,
+                  onTap: () {},
+                );
+              }),
         )
       ],
     );
@@ -113,34 +117,12 @@ class _CartViewBodyState extends State<CartViewBody> {
                   topRight: Radius.circular(30), topLeft: Radius.circular(30))),
           child: CheckoutBody(
             expansionItems: expansionItems,
-            onTap: () {},
+            placeOrderOnTap: () {
+              placeOrderFunction();
+            },
           ),
         );
       },
     );
-  }
-}
-
-class CartActionButton extends StatelessWidget {
-  const CartActionButton({
-    super.key,
-    required this.expansionItems,
-    required this.onTap,
-  });
-  final List<ExpansionTileModel> expansionItems;
-  final Function() onTap;
-  @override
-  Widget build(BuildContext context) {
-    return Stack(children: [
-      CustomActionButton(
-        buttonText: 'Go to Checkout',
-        onTap: onTap,
-      ),
-      const Positioned(
-        right: 22,
-        top: 22,
-        child: CustomCheckoutPriceText(),
-      ),
-    ]);
   }
 }

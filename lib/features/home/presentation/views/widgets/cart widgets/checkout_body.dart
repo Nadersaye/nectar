@@ -11,11 +11,11 @@ class CheckoutBody extends StatelessWidget {
   const CheckoutBody({
     super.key,
     required this.expansionItems,
-    required this.onTap,
+    required this.placeOrderOnTap,
   });
 
   final List<ExpansionTileModel> expansionItems;
-  final Function() onTap;
+  final Function() placeOrderOnTap;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,7 +36,7 @@ class CheckoutBody extends StatelessWidget {
           padding: const EdgeInsets.all(25),
           child: CustomActionButton(
             buttonText: 'Place Order',
-            onTap: onTap,
+            onTap: placeOrderOnTap,
           ),
         ),
       ],
