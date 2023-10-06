@@ -1,5 +1,4 @@
 import 'package:animated_digit/animated_digit.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
@@ -10,6 +9,7 @@ import '../../../../data/models/expansion_tile_model.dart';
 import 'animated_dialog.dart';
 import 'checkout_appbar.dart';
 import 'custom_cart_listview.dart';
+import 'custom_terms_text.dart';
 
 class CartViewBody extends StatefulWidget {
   const CartViewBody({super.key});
@@ -196,34 +196,6 @@ class CheckoutListView extends StatelessWidget {
         return const CustomDivider();
       },
       itemCount: expansionItems.length,
-    );
-  }
-}
-
-class CustomTermsText extends StatelessWidget {
-  const CustomTermsText({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25),
-      child: RichText(
-        text: TextSpan(children: [
-          TextSpan(
-              text: 'By placing an order you agree to our',
-              style: Styles.styleGrey14.copyWith(fontWeight: FontWeight.w600)),
-          TextSpan(
-              text: ' Terms And Conditions',
-              style: Styles.styleGrey14.copyWith(
-                  fontWeight: FontWeight.w600, color: AppColors.blackRussian),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  debugPrint('checkout');
-                }),
-        ]),
-      ),
     );
   }
 }
