@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
+import '../../../../../../core/widgets/custom_divider.dart';
 import '../../../../data/models/cart_item_model.dart';
 import 'custom_listview_item.dart';
 
@@ -34,12 +35,7 @@ class _CartListViewState extends State<CartListView> {
       }),
       itemCount: widget.productItems.length,
       separatorBuilder: (BuildContext context, int index) {
-        return const Divider(
-          height: 1,
-          indent: 25,
-          endIndent: 25,
-          color: AppColors.lightGray,
-        );
+        return const CustomDivider();
       },
     );
     /* AnimatedList(
