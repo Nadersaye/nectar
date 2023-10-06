@@ -1,15 +1,14 @@
 import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
 import 'package:nectar/core/widgets/custom_divider.dart';
 import '../../../../data/models/cart_item_model.dart';
 import '../../../../data/models/expansion_tile_model.dart';
-import '../product details widgets/custom_appbar_icon.dart';
 import 'animated_dialog.dart';
+import 'checkout_appbar.dart';
 import 'custom_cart_listview.dart';
 
 class CartViewBody extends StatefulWidget {
@@ -224,38 +223,6 @@ class CustomTermsText extends StatelessWidget {
                   debugPrint('checkout');
                 }),
         ]),
-      ),
-    );
-  }
-}
-
-class CheckOutAppBar extends StatelessWidget {
-  const CheckOutAppBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 15, left: 25, top: 10, bottom: 15),
-      child: Row(
-        children: [
-          Text(
-            'Checkout',
-            style: Styles.stylebBackRussian24,
-          ),
-          const Spacer(),
-          CustomIcon(
-            icon: const Icon(
-              Icons.close,
-              size: 17,
-              color: AppColors.blackRussian,
-            ),
-            onPressed: () {
-              AppRoutes.router.pop();
-            },
-          ),
-        ],
       ),
     );
   }
