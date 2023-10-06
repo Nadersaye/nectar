@@ -1,4 +1,5 @@
 import 'package:animated_digit/animated_digit.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
@@ -125,7 +126,10 @@ class CartActionButton extends StatelessWidget {
                         topLeft: Radius.circular(30))),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [CheckOutAppBar()],
+                  children: [
+                    CheckOutAppBar(),
+                    CustomTermsText(),
+                  ],
                 ),
               );
             },
@@ -150,6 +154,31 @@ class CartActionButton extends StatelessWidget {
         ),
       ),
     ]);
+  }
+}
+
+class CustomTermsText extends StatelessWidget {
+  const CustomTermsText({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(children: [
+        TextSpan(
+            text: 'By placing an order you agree to our',
+            style: Styles.styleGrey14.copyWith(fontWeight: FontWeight.w600)),
+        TextSpan(
+            text: ' Terms And Conditions',
+            style: Styles.styleGrey14.copyWith(
+                fontWeight: FontWeight.w600, color: AppColors.blackRussian),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                debugPrint('checkout');
+              }),
+      ]),
+    );
   }
 }
 
