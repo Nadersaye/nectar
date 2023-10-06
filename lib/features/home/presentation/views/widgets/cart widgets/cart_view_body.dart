@@ -9,6 +9,7 @@ import 'animated_dialog.dart';
 import 'checkout_appbar.dart';
 import 'checkout_listview.dart';
 import 'custom_cart_listview.dart';
+import 'custom_checkout_price.dart';
 import 'custom_terms_text.dart';
 
 class CartViewBody extends StatefulWidget {
@@ -148,22 +149,10 @@ class CartActionButton extends StatelessWidget {
           );
         },
       ),
-      Positioned(
+      const Positioned(
         right: 22,
         top: 22,
-        child: Container(
-          height: 22,
-          width: 43,
-          decoration: BoxDecoration(
-              color: AppColors.deepGreen,
-              borderRadius: BorderRadius.circular(4)),
-          child: Center(
-            child: Text(
-              '\$12.5',
-              style: Styles.styleblackRussian12.copyWith(color: AppColors.snow),
-            ),
-          ),
-        ),
+        child: CustomCheckoutPriceText(),
       ),
     ]);
   }
