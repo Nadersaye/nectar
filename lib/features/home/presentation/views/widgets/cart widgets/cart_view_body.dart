@@ -90,33 +90,73 @@ class _CartViewBodyState extends State<CartViewBody> {
             productItems: productItems,
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(right: 25, left: 25, bottom: 25),
-          child: Stack(children: [
-            const CustomActionButton(
-              buttonText: 'Go to Checkout',
-            ),
-            Positioned(
-              right: 22,
-              top: 22,
-              child: Container(
-                height: 22,
-                width: 43,
-                decoration: BoxDecoration(
-                    color: AppColors.deepGreen,
-                    borderRadius: BorderRadius.circular(4)),
-                child: Center(
-                  child: Text(
-                    '\$12.5',
-                    style: Styles.styleblackRussian12
-                        .copyWith(color: AppColors.snow),
-                  ),
-                ),
-              ),
-            ),
-          ]),
+        const Padding(
+          padding: EdgeInsets.only(right: 25, left: 25, bottom: 25),
+          child: CartActionButton(),
         )
       ],
     );
+  }
+}
+
+class CartActionButton extends StatelessWidget {
+  const CartActionButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: [
+      CustomActionButton(
+        buttonText: 'Go to Checkout',
+        onTap: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) {
+              return Container(
+                height: 531,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: AppColors.honeydew,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          'Checkout',
+                          style: Styles.stylebBackRussian24,
+                        ),
+                        const Spacer()
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
+          );
+        },
+      ),
+      Positioned(
+        right: 22,
+        top: 22,
+        child: Container(
+          height: 22,
+          width: 43,
+          decoration: BoxDecoration(
+              color: AppColors.deepGreen,
+              borderRadius: BorderRadius.circular(4)),
+          child: Center(
+            child: Text(
+              '\$12.5',
+              style: Styles.styleblackRussian12.copyWith(color: AppColors.snow),
+            ),
+          ),
+        ),
+      ),
+    ]);
   }
 }

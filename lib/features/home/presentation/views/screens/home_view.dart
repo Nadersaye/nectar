@@ -1,19 +1,16 @@
-import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/features/home/presentation/views/screens/cart_view.dart';
-
-import '../../../data/models/cart_item_model.dart';
-import '../widgets/cart widgets/custom_cart_listview.dart';
-import '../widgets/cart widgets/custom_listview_item.dart';
+import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController();
+    //TextEditingController searchController = TextEditingController();
+    SolidController controller = SolidController();
     return SafeArea(
       child: Scaffold(
         body: const CartView()

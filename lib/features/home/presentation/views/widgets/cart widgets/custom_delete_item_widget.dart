@@ -23,17 +23,31 @@ class CustomDeleteItem extends StatelessWidget {
           title: title,
           subTitle: subTitle,
         ),
-        CustomIcon(
-          icon: const Icon(
-            Icons.close,
-            size: 17,
-            color: AppColors.pinkSwan,
-          ),
-          onPressed: () {
-            deleteItem;
-          },
-        )
+        IconDelete(deleteItem: deleteItem)
       ],
+    );
+  }
+}
+
+class IconDelete extends StatelessWidget {
+  const IconDelete({
+    super.key,
+    required this.deleteItem,
+  });
+
+  final Function deleteItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomIcon(
+      icon: const Icon(
+        Icons.close,
+        size: 17,
+        color: AppColors.pinkSwan,
+      ),
+      onPressed: () {
+        deleteItem;
+      },
     );
   }
 }
