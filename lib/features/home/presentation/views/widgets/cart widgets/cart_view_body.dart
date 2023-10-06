@@ -1,9 +1,11 @@
 import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
+import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
 import '../../../../data/models/cart_item_model.dart';
+import '../product details widgets/custom_appbar_icon.dart';
 import 'custom_cart_listview.dart';
 
 class CartViewBody extends StatefulWidget {
@@ -121,19 +123,9 @@ class CartActionButton extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(30),
                         topLeft: Radius.circular(30))),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          'Checkout',
-                          style: Styles.stylebBackRussian24,
-                        ),
-                        const Spacer()
-                      ],
-                    )
-                  ],
+                child: const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [CheckOutAppBar()],
                 ),
               );
             },
@@ -158,5 +150,34 @@ class CartActionButton extends StatelessWidget {
         ),
       ),
     ]);
+  }
+}
+
+class CheckOutAppBar extends StatelessWidget {
+  const CheckOutAppBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          'Checkout',
+          style: Styles.stylebBackRussian24,
+        ),
+        const Spacer(),
+        CustomIcon(
+          icon: const Icon(
+            Icons.close,
+            size: 17,
+            color: AppColors.blackRussian,
+          ),
+          onPressed: () {
+            AppRoutes.router.pop();
+          },
+        ),
+      ],
+    );
   }
 }
