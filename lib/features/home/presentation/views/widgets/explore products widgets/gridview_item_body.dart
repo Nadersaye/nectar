@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
-
 import '../../../../data/models/category_model.dart';
 
 class GridviewItemBody extends StatelessWidget {
