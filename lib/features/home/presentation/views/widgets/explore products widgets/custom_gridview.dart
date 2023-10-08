@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/features/home/data/models/category_model.dart';
-import '../../features/home/presentation/views/widgets/explore products widgets/custom_gridview_item.dart';
+import 'custom_gridview_item.dart';
 
 class CustomGridView extends StatelessWidget {
   const CustomGridView({super.key, required this.categoriesItems});

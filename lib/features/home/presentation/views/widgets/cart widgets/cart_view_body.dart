@@ -8,6 +8,7 @@ import 'animated_dialog.dart';
 import 'cart_action_button.dart';
 import 'checkout_body.dart';
 import 'custom_cart_listview.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class CartViewBody extends StatefulWidget {
   const CartViewBody({super.key});
@@ -88,16 +89,22 @@ class _CartViewBodyState extends State<CartViewBody> {
 
   void placeOrderFunction() {
     //AppRoutes.router.pop();
-    /*animatedDialog(
-                              context: context,
-                              width: MediaQuery.of(context).size.width - 60);*/
     animatedDialog(
+        context: context, width: MediaQuery.of(context).size.width - 60);
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: 0,
+            channelKey: 'nectar',
+            title: 'Successful order',
+            body:
+                'Congratulation !, your order create successfully and it will sended to you in an hour'));
+    /*animatedDialog(
         context: context,
         width: MediaQuery.of(context).size.width - 60,
         massege: 'Something went tembly wrong.',
         title: 'Oops! Order Failed',
         text2: 'Try Again',
-        animation: 'failure');
+        animation: 'failure');*/
   }
 
   void goToCheckoutFunction({

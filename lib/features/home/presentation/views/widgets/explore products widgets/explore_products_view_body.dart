@@ -4,7 +4,7 @@ import 'package:nectar/core/widgets/custom_textformfield.dart';
 
 import '../../../../../../core/utils/styles.dart';
 import '../../../../data/models/category_model.dart';
-import '../../../../../../core/widgets/custom_gridview.dart';
+import 'custom_gridview.dart';
 
 class ExploreProductsViewBody extends StatelessWidget {
   const ExploreProductsViewBody(

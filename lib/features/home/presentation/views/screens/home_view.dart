@@ -15,7 +15,7 @@ class HomeView extends StatelessWidget {
     SolidController controller = SolidController();
     return SafeArea(
       child: Scaffold(
-        body: const ExploreProductsView()
+        body: const CartView()
         /*ShopView(
           searchController: searchController,
         )*/
