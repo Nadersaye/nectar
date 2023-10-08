@@ -23,5 +23,6 @@ abstract class AppColors {
   static const lightRed = Color.fromARGB(255, 248, 157, 151);
   static const mediumRed = Color.fromARGB(255, 218, 43, 30);
   static const grayHanin = Color.fromARGB(255, 204, 202, 202);
+  static const babyGreen = Color.fromARGB(255, 176, 245, 179);
 }
 //#489e67

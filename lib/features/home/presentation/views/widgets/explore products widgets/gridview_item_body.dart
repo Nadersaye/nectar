@@ -11,21 +11,25 @@ class GridviewItemBody extends StatelessWidget {
   final CategoryModel categoryItem;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Image.asset(
-          'assets/images/${categoryItem.image}.jpg',
-          height: MediaQuery.of(context).size.height / 2 - 15,
-          fit: BoxFit.contain,
-        ),
-        Text(
-          categoryItem.categoryName,
-          style: Styles.styleMagnoliaWhite16.copyWith(
-              color: AppColors.blackRussian, fontWeight: FontWeight.w700),
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset(
+            'assets/images/${categoryItem.image}',
+            height: 93,
+            width: MediaQuery.of(context).size.width - 30,
+            fit: BoxFit.fill,
+          ),
+          Text(
+            categoryItem.categoryName,
+            style: Styles.styleMagnoliaWhite16.copyWith(
+                color: AppColors.blackRussian, fontWeight: FontWeight.w700),
+          )
+        ],
+      ),
     );
   }
 }
