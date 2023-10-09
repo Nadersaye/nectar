@@ -2,6 +2,7 @@ import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
+import '../../../../../../core/stripe payment/payment_manager.dart';
 import '../../../../data/models/cart_item_model.dart';
 import '../../../../data/models/expansion_tile_model.dart';
 import 'animated_dialog.dart';
@@ -87,9 +88,34 @@ class _CartViewBodyState extends State<CartViewBody> {
     );
   }
 
-  void placeOrderFunction() {
+  Future<void> placeOrderFunction() async {
+    await StripePaymentManager.makePayment(100, 'USD');
+    if (StripePaymentManager.isSucceeded == true) {
+      // ignore: use_build_context_synchronously
+      animatedDialog(
+          // ignore: use_build_context_synchronously
+          context: context,
+          width: MediaQuery.of(context).size.width - 60);
+      AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: 0,
+              channelKey: 'nectar',
+              title: 'Successful order',
+              body:
+                  'Congratulation !, your order create successfully and it will sended to you in an hour'));
+    } else {
+      // ignore: use_build_context_synchronously
+      animatedDialog(
+          context: context,
+          // ignore: use_build_context_synchronously
+          width: MediaQuery.of(context).size.width - 60,
+          massege: 'Something went tembly wrong.',
+          title: 'Oops! Order Failed',
+          text2: 'Try Again',
+          animation: 'failure');
+    }
     //AppRoutes.router.pop();
-    animatedDialog(
+    /*animatedDialog(
         context: context, width: MediaQuery.of(context).size.width - 60);
     AwesomeNotifications().createNotification(
         content: NotificationContent(
@@ -97,7 +123,7 @@ class _CartViewBodyState extends State<CartViewBody> {
             channelKey: 'nectar',
             title: 'Successful order',
             body:
-                'Congratulation !, your order create successfully and it will sended to you in an hour'));
+                'Congratulation !, your order create successfully and it will sended to you in an hour'));*/
     /*animatedDialog(
         context: context,
         width: MediaQuery.of(context).size.width - 60,

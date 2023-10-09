@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nectar/core/stripe%20payment/stripe_keys.dart';
 import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = StripeKeys.publishablekey;
+  Stripe.merchantIdentifier = 'string';
+  await Stripe.instance.applySettings();
   AwesomeNotifications().initialize(
       null,
       [
