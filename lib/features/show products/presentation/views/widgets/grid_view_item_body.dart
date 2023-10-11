@@ -48,20 +48,22 @@ class CustomCartRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          '\$' '$productItem.price',
+          '\$' '${productItem.price}',
           style: Styles.styleBlackRussian18,
         ),
-        IconButton(
+        Container(
+          width: 46,
+          height: 46,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(17),
+            color: AppColors.oceanGreen,
+          ),
           alignment: Alignment.center,
-          color: AppColors.oceanGreen,
-          onPressed: () {},
-          icon: const Icon(
+          child: const Icon(
             Icons.add_shopping_cart_outlined,
             color: AppColors.white,
             size: 17,
           ),
-          iconSize: 46,
-          splashRadius: 17,
         ),
       ],
     );

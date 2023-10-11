@@ -4,7 +4,9 @@ import 'package:nectar/features/home/presentation/views/screens/product_details_
 import '../../features/home/presentation/views/screens/cart_view.dart';
 import '../../features/home/presentation/views/screens/explore_products_view.dart';
 import '../../features/home/presentation/views/screens/home_view.dart';
+import '../../features/show products/presentation/views/show_products_view.dart';
 import '../../features/splash/presentation/views/screens/splash_view.dart';
+import '../models/cart_item_model.dart';
 
 abstract class AppRoutes {
   static const String homeView = '/homeView';
@@ -12,6 +14,7 @@ abstract class AppRoutes {
   static const String searchView = '/SearchView';
   static const String cartView = '/CartView';
   static const String exploreProductsView = '/ExploreProductsView';
+  static const String showProductsView = '/ShowProductsView';
 
   static final router = GoRouter(
     routes: <RouteBase>[
@@ -45,6 +48,14 @@ abstract class AppRoutes {
           return const ExploreProductsView();
         },
       ),
+      GoRoute(
+        path: showProductsView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const ShowProductsView(
+              /*productsItems: state.extra as List<CartItemModel>, categoryName: state.extra as String ,*/);
+        },
+      ),
+      //ShowProductsView
       //CartView
       //HomeView
       //ExploreProductsView
