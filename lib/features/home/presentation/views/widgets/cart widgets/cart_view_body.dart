@@ -1,9 +1,8 @@
-import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import '../../../../../../core/stripe payment/payment_manager.dart';
-import '../../../../data/models/cart_item_model.dart';
+import '../../../../../../core/models/cart_item_model.dart';
 import '../../../../data/models/expansion_tile_model.dart';
 import 'animated_dialog.dart';
 import 'cart_action_button.dart';
@@ -20,26 +19,26 @@ class CartViewBody extends StatefulWidget {
 
 class _CartViewBodyState extends State<CartViewBody> {
   List<CartItemModel> productItems = [
-    CartItemModel(7.35, 7, 'assets/images/apple.png', 'apple', '2 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
+    CartItemModel(
+        7.35, 7, 'assets/images/apple.png', 'apple', '2 kg ,price', true, 0, 0),
     CartItemModel(2.35, 2, 'assets/images/apple2.png', 'apple', '.5 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
+        true, 0, 0),
     CartItemModel(3.35, 3, 'assets/images/apple3.png', 'apple', '1 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
-    CartItemModel(2.35, 2, 'assets/images/apple.png', 'apple', '3 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
+        true, 0, 0),
+    CartItemModel(
+        2.35, 2, 'assets/images/apple.png', 'apple', '3 kg ,price', true, 0, 0),
     CartItemModel(2.35, 2, 'assets/images/apple2.png', 'apple', '1 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
+        true, 0, 0),
     CartItemModel(12.75, 11, 'assets/images/apple3.png', 'apple', '4 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
-    CartItemModel(2.35, 2, 'assets/images/apple.png', 'apple', '1 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
+        true, 0, 0),
+    CartItemModel(
+        2.35, 2, 'assets/images/apple.png', 'apple', '1 kg ,price', true, 0, 0),
     CartItemModel(15.35, 13, 'assets/images/apple.png', 'apple', '5 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
-    CartItemModel(2.35, 2, 'assets/images/apple.png', 'apple', '1 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
+        true, 0, 0),
+    CartItemModel(
+        2.35, 2, 'assets/images/apple.png', 'apple', '1 kg ,price', true, 0, 0),
     CartItemModel(30.35, 25, 'assets/images/apple2.png', 'apple', '7 kg ,price',
-        true, AnimatedDigitController(1), AnimatedDigitController(7.37)),
+        true, 0, 0),
   ];
   List<ExpansionTileModel> expansionTileItems = [
     ExpansionTileModel('Delivery', 'Select Method'),
@@ -47,6 +46,7 @@ class _CartViewBodyState extends State<CartViewBody> {
     ExpansionTileModel('Promo Code', 'Pick Discount'),
     ExpansionTileModel('Total Cost', '\$13.7'),
   ];
+
   @override
   void initState() {
     super.initState();

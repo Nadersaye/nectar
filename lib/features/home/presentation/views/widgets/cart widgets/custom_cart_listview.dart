@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import '../../../../../../core/widgets/custom_divider.dart';
-import '../../../../data/models/cart_item_model.dart';
+import '../../../../../../core/models/cart_item_model.dart';
 import 'custom_listview_item.dart';
 
 class CartListView extends StatefulWidget {

@@ -1,6 +1,7 @@
+import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
 import '../../../../../../core/widgets/increase_decrease_product_count.dart';
-import '../../../../data/models/cart_item_model.dart';
+import '../../../../../../core/models/cart_item_model.dart';
 import 'custom_delete_item_widget.dart';
 
 class CartListViewItem extends StatelessWidget {
@@ -8,7 +9,6 @@ class CartListViewItem extends StatelessWidget {
       {super.key, required this.deleteItem, required this.productItem});
   final Function deleteItem;
   final CartItemModel productItem;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -42,7 +42,7 @@ class CartListViewItem extends StatelessWidget {
   }
 }
 
-class ProductCartDetails extends StatelessWidget {
+class ProductCartDetails extends StatefulWidget {
   const ProductCartDetails({
     super.key,
     required this.deleteItem,
@@ -51,6 +51,23 @@ class ProductCartDetails extends StatelessWidget {
 
   final Function deleteItem;
   final CartItemModel productItem;
+
+  @override
+  State<ProductCartDetails> createState() => _ProductCartDetailsState();
+}
+
+class _ProductCartDetailsState extends State<ProductCartDetails> {
+  late AnimatedDigitController countController;
+  late AnimatedDigitController totalController;
+  @override
+  void initState() {
+    countController =
+        AnimatedDigitController(widget.productItem.countController);
+    totalController =
+        AnimatedDigitController(widget.productItem.countController);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -58,17 +75,17 @@ class ProductCartDetails extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CustomDeleteItem(
-            deleteItem: deleteItem,
-            title: productItem.title,
-            subTitle: productItem.subTitle,
+            deleteItem: widget.deleteItem,
+            title: widget.productItem.title,
+            subTitle: widget.productItem.subTitle,
           ),
           const Spacer(),
           IncreaseAndDecreaseProductCount(
-            countController: productItem.countController,
-            priceController: productItem.priceController,
-            price: productItem.price,
-            isOfferProduct: productItem.isOfferProduct,
-            offerPrice: productItem.offerPrice,
+            countController: countController,
+            priceController: totalController,
+            price: widget.productItem.price,
+            isOfferProduct: widget.productItem.isOfferProduct,
+            offerPrice: widget.productItem.offerPrice,
           ),
         ],
       ),
