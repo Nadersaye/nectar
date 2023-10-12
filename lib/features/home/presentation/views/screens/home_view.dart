@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
-import 'package:nectar/features/home/presentation/views/screens/cart_view.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 
-import 'explore_products_view.dart';
+import 'favourite_products_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -15,7 +14,7 @@ class HomeView extends StatelessWidget {
     SolidController controller = SolidController();
     return SafeArea(
       child: Scaffold(
-        body: const CartView()
+        body: const FavouriteProductsView()
         /*ShopView(
           searchController: searchController,
         )*/

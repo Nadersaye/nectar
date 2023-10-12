@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import '../../../../../../core/models/cart_item_model.dart';
-import '../cart widgets/custom_cart_listview.dart';
+import 'favourite_list_view.dart';
 
 class FavouriteProductsViewBody extends StatefulWidget {
   const FavouriteProductsViewBody({super.key});
@@ -57,7 +57,7 @@ class _FavouriteProductsViewBodyState extends State<FavouriteProductsViewBody> {
           color: AppColors.lightGray,
         ),
         Expanded(
-          child: CartListView(
+          child: FavouriteProductsListView(
             productItems: productItems,
           ),
         ),

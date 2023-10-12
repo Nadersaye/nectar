@@ -55,31 +55,7 @@ abstract class AppRoutes {
               /*productsItems: state.extra as List<CartItemModel>, categoryName: state.extra as String ,*/);
         },
       ),
-      //ShowProductsView
-      //CartView
-      //HomeView
-      //ExploreProductsView
-      /*
-      GoRoute(
-        path: bookDetailsView,
-        builder: (BuildContext context, GoRouterState state) {
-          return BlocProvider(
-            create: (context) => SimilarBooksCubit(getIt.get<HomeRepoImp>()),
-            child: BookDetailsView(
-              bookModel: state.extra as BookModel,
-            ),
-          );
-        },
-      ),
-      GoRoute(
-        path: searchView,
-        builder: (BuildContext context, GoRouterState state) {
-          return BlocProvider(
-            create: (context) => SearchResultCubit(getIt.get<SearchRepoImp>()),
-            child: const SearchView(),
-          );
-        },
-      ),*/
+      //FavouriteProductsView
     ],
   );
 }
