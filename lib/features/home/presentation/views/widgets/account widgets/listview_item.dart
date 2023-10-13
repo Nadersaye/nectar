@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
-
 import '../../../../data/models/account_model.dart';
 
 class ListviewItem extends StatelessWidget {
@@ -10,6 +9,7 @@ class ListviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      contentPadding: EdgeInsets.zero,
       leading: Icon(
         accountItem.leadingIcon,
         size: 20,
@@ -19,11 +19,12 @@ class ListviewItem extends StatelessWidget {
         accountItem.title,
         style: Styles.styleBlackRussian18,
       ),
-      trailing: Icon(
-        accountItem.trailingIcon,
-        size: 15,
-        color: AppColors.blackRussian,
-      ),
+      trailing: accountItem.trailing ??
+          const Icon(
+            Icons.chevron_right_outlined,
+            size: 20,
+            color: AppColors.blackRussian,
+          ),
       onTap: accountItem.onTap(),
     );
   }

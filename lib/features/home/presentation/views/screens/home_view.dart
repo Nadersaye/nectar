@@ -3,6 +3,7 @@ import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 
+import 'account_view.dart';
 import 'favourite_products_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -14,7 +15,7 @@ class HomeView extends StatelessWidget {
     SolidController controller = SolidController();
     return SafeArea(
       child: Scaffold(
-        body: const FavouriteProductsView()
+        body: const AccountView()
         /*ShopView(
           searchController: searchController,
         )*/

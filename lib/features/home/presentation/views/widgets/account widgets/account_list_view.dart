@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nectar/core/widgets/custom_divider.dart';
 import 'package:nectar/features/home/data/models/account_model.dart';
 
+import '../../../../../../core/utils/colors.dart';
 import 'listview_item.dart';
 
 class AccountListview extends StatelessWidget {
@@ -16,7 +18,10 @@ class AccountListview extends StatelessWidget {
         );
       },
       separatorBuilder: (BuildContext context, int index) {
-        return const CustomDivider();
+        return const Divider(
+          height: 1,
+          color: AppColors.lightGray,
+        );
       },
       itemCount: accountItems.length,
     );

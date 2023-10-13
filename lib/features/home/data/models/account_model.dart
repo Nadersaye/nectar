@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 class AccountModel {
   late String title;
   late IconData leadingIcon;
-  late IconData trailingIcon;
+  Widget? trailing;
   late Function onTap;
-  AccountModel(this.title, this.leadingIcon, this.trailingIcon, this.onTap);
+  AccountModel(
+      {required this.title,
+      required this.leadingIcon,
+      required this.onTap,
+      this.trailing});
 }
