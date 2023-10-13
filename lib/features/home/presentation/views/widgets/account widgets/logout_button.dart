@@ -1,0 +1,33 @@
+import 'package:flutter/material.dart';
+
+import '../../../../../../core/utils/colors.dart';
+import '../../../../../../core/widgets/custom_button.dart';
+
+class LogoutAccountButton extends StatelessWidget {
+  const LogoutAccountButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        CustomActionButton(
+          buttonText: 'Log Out',
+          backgroundColor: AppColors.honeydew,
+          fontColor: AppColors.oceanGreen,
+          onTap: () {},
+        ),
+        const PositionedDirectional(
+          start: 25,
+          top: 25,
+          child: Icon(
+            Icons.logout_outlined,
+            size: 20,
+            color: AppColors.oceanGreen,
+          ),
+        )
+      ],
+    );
+  }
+}
