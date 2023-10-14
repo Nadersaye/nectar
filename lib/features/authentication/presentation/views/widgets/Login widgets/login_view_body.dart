@@ -1,7 +1,11 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nectar/core/models/toast_states.dart';
+import 'package:nectar/core/utils/styles.dart';
+import 'package:nectar/core/widgets/custom_authentication_textformfield.dart';
+import 'package:nectar/core/widgets/custom_button.dart';
+import 'package:nectar/core/widgets/custom_svg_image.dart';
 import '../../../../../../core/widgets/custom_toast_text.dart';
 import '../../../manager/cubit/login_cubit.dart';
 
@@ -75,40 +79,38 @@ class LoginViewBody extends StatelessWidget {
                     ),*/
                     Padding(
                       padding: const EdgeInsets.only(right: 32, left: 32),
-                      child: defaultFormField2(
-                        width: double.infinity,
+                      child: CustomAuthenticationTextformfield(
                         controller: phoneControlar,
-                        type: TextInputType.phone,
+                        type: TextInputType.emailAddress,
+                        label: label,
+                        isPassword:
+                            BlocProvider.of<LoginCubit>(context).isPassword,
+                        radius: 8,
+                        fontStyle: Styles.styleBlackRussian18,
+                        width: double.infinity,
                         validate: (value) {
                           if (value == null || value.isEmpty) {
-                            showToast(
-                                text: 'الرجاء ادخال رقم الهاتف',
-                                state: toastStates.ERROR);
-                            return '';
-                          }
-                          if (value.length != 11) {
-                            showToast(
-                                text: 'يجب ان يحتوى رقم الهاتف على 11 رقم',
-                                state: toastStates.WARNING);
-                            return '';
-                          }
-                          if (!value.startsWith('01')) {
-                            showToast(
-                                text: ' يجب ان يبدا الرقم ب 01 ',
-                                state: toastStates.WARNING);
-                            return '';
+                            /*customToastText(
+                              toastMessage: 'Please enter your email', state: ToastStates.error);*/
+                            return 'Please enter your email';
                           } else {
                             return null;
                           }
                         },
-                        label: '  رقم الهاتف',
-                        fcolor: const Color(0xff161616),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
                           right: 32, left: 32, top: 16, bottom: 20),
-                      child: defaultFormField2(
+                      child: CustomAuthenticationTextformfield(
+                          controller: passwordControlar,
+                          type: TextInputType.visiblePassword,
+                          label: '',
+                          isPassword: LoginCubit.get(context).isPassword,
+                          radius: 8,
+                          fontStyle: Styles.styleBlackRussian18,
+                          width: double.infinity),
+                      /*defaultFormField2(
                           width: double.infinity,
                           controller: passwordControlar,
                           type: TextInputType.visiblePassword,
@@ -120,16 +122,16 @@ class LoginViewBody extends StatelessWidget {
                           }),
                           validate: (value) {
                             if (value == null || value.isEmpty) {
-                              showToast(
-                                  text: ' الرجاء ادخال كلمة المرور',
-                                  state: toastStates.ERROR);
+                              customToastText(
+                                toastMessage: 'Please enter the password',
+                                state: ToastStates.error);
                               return '';
                             }
                             return null;
                           },
                           label: ' كلمة المرور',
                           fcolor: const Color(0xff161616),
-                          isPassword: loginCubit.isPassword),
+                          isPassword: loginCubit.isPassword),*/
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -146,26 +148,17 @@ class LoginViewBody extends StatelessWidget {
                                     color: Color(0xff009c7b),
                                   ))),
                         ),
-                        const Opacity(
-                          opacity: 0.5,
-                          child: Text("تذكرنى",
-                              style: TextStyle(
-                                  color: Color(0xff161616),
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: "ReadexPro",
-                                  fontStyle: FontStyle.normal,
-                                  fontSize: 14.0),
-                              textAlign: TextAlign.right),
-                        ),
+                        const Text('Remember me '),
                         SizedBox(
                           width: MediaQuery.of(context).size.height * 0.07,
                         ),
-                        DefoltTextButton(
-                            function: () {
-                              NavigateTo(context, const PhoneScreen());
-                            },
-                            text: "هل نسيت كلمة المرور؟",
-                            direction: TextAlign.left),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            'forget password ?',
+                            style: Styles.styleBlackRussian18,
+                          ),
+                        )
                       ],
                     ),
                     SizedBox(
@@ -173,30 +166,9 @@ class LoginViewBody extends StatelessWidget {
                     ),
                     Center(
                       child: ConditionalBuilder(
-                        condition: state is! LogInLoadingState,
+                        condition: state is! LoginLoadingState,
                         builder: (context) {
-                          return MaterialButton(
-                            color: const Color(0xff009c7b),
-                            minWidth: MediaQuery.of(context).size.width - 70,
-                            height: 48,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                            onPressed: () {
-                              if (formkey.currentState!.validate()) {
-                                loginCubit.userLogin(
-                                    phoneNumber: phoneControlar.text,
-                                    password: passwordControlar.text);
-                              }
-                            },
-                            child: const Text(" تسجيل الدخول",
-                                style: TextStyle(
-                                    color: Color(0xffffffff),
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: "ReadexPro",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 18.0),
-                                textAlign: TextAlign.center),
-                          );
+                          return const CustomActionButton(buttonText: 'Login');
                         },
                         fallback: (context) =>
                             const CircularProgressIndicator(),
@@ -249,21 +221,15 @@ class LoginViewBody extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.028,
                     ),
-                    Row(
+                    const Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        DefoltSvgImage(
-                            image: 'assets/images/facbook.svg',
-                            width: 35.8,
-                            hight: 35.8),
-                        const SizedBox(
+                        CustomSvgImage(image: '', width: 35, height: 35),
+                        SizedBox(
                           width: 61,
                         ),
-                        DefoltSvgImage(
-                            image: 'assets/images/Googel.svg',
-                            width: 35.8,
-                            hight: 35.8),
+                        CustomSvgImage(image: '', width: 35, height: 35),
                       ],
                     ),
                   ],
