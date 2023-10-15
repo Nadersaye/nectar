@@ -12,6 +12,7 @@ import 'package:nectar/features/authentication/presentation/views/widgets/Login%
 import '../../../../../../core/widgets/custom_toast_text.dart';
 import '../../../manager/cubit/login_cubit.dart';
 import 'custom_checkbox_row.dart';
+import 'custom_seperator_row.dart';
 import 'custom_socialmedia_button.dart';
 import 'custom_socialmedia_row.dart';
 
@@ -190,32 +191,5 @@ class CustomHaveAccountText extends StatelessWidget {
                   .copyWith(color: AppColors.oceanGreen),
               recognizer: TapGestureRecognizer()..onTap = () {})
         ]));
-  }
-}
-
-class CustomSeperatorRow extends StatelessWidget {
-  const CustomSeperatorRow({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const CustomSeperatorAuthentication(),
-        const SizedBox(
-          width: 2,
-        ),
-        Text(
-          'OR Login using',
-          style: Styles.styleGrey14,
-        ),
-        const SizedBox(
-          width: 2,
-        ),
-        const CustomSeperatorAuthentication(),
-      ],
-    );
   }
 }
