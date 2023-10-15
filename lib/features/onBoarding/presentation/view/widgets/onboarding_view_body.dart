@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
 
+import '../../../../../core/utils/assets.dart';
 import 'onboarding_welcome_text.dart';
 
 class OnboardingViewBody extends StatelessWidget {
@@ -17,17 +19,20 @@ class OnboardingViewBody extends StatelessWidget {
           const SizedBox(
             height: 70,
           ),
-          Image.asset('assets/images/Capture2.PNG'),
+          Image.asset(mainLogo),
           const Spacer(),
           const CustomActionButton(buttonText: 'Get Started'),
           const SizedBox(
             height: 25,
           ),
-          const CustomActionButton(
+          CustomActionButton(
+            onTap: () {
+              AppRoutes.router.push(AppRoutes.loginView);
+            },
             buttonText: 'Login',
             backgroundColor: Colors.transparent,
-            fontColor: AppColors.blackRussian,
-            borderColor: AppColors.grey,
+            fontColor: AppColors.oceanGreen,
+            borderColor: AppColors.oceanGreen,
           )
         ],
       ),

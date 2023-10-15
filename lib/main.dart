@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nectar/core/stripe%20payment/stripe_keys.dart';
 import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:nectar/features/authentication/presentation/manager/cubit/login_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,11 +49,14 @@ class _NectarAppState extends State<NectarApp> {
       designSize: const Size(414, 896),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp.router(
-        routerConfig: AppRoutes.router,
-        debugShowCheckedModeBanner: false,
-        theme:
-            ThemeData(primaryColor: AppColors.oceanGreen, fontFamily: 'Gilroy'),
+      child: BlocProvider(
+        create: (context) => LoginCubit(),
+        child: MaterialApp.router(
+          routerConfig: AppRoutes.router,
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+              primaryColor: AppColors.oceanGreen, fontFamily: 'Gilroy'),
+        ),
       ),
     );
   }

@@ -1,244 +1,311 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nectar/core/models/toast_states.dart';
+import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_authentication_textformfield.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
-import 'package:nectar/core/widgets/custom_svg_image.dart';
 import '../../../../../../core/widgets/custom_toast_text.dart';
 import '../../../manager/cubit/login_cubit.dart';
+import 'custom_checkbox_row.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController phoneControlar = TextEditingController();
-    TextEditingController passwordControlar = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController confirmPasswordController = TextEditingController();
     var formkey = GlobalKey<FormState>();
-    return BlocProvider(
-      create: (BuildContext context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {
-          if (state is LoginSuccesState) {
-            customToastText(
-                toastMessage: 'successful logged', state: ToastStates.success);
-          } else if (state is LoginErrorState) {
-            customToastText(
-                toastMessage: 'please enter correct data',
-                state: ToastStates.error);
-          }
-        },
-        builder: (context, state) {
-          var loginCubit = LoginCubit.get(context);
-          return Scaffold(
-            body: SingleChildScrollView(
-              child: Form(
-                key: formkey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 60, left: 20),
-                      child: SizedBox(
-                        height: 24,
-                        width: 24,
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
+    return BlocConsumer<LoginCubit, LoginStates>(
+      listener: (context, state) {
+        if (state is LoginSuccesState) {
+          customToastText(
+              toastMessage: 'successful logged', state: ToastStates.success);
+        } else if (state is LoginErrorState) {
+          customToastText(
+              toastMessage: 'please enter correct data',
+              state: ToastStates.error);
+        }
+      },
+      builder: (context, state) {
+        var loginCubit = LoginCubit.get(context);
+        return Padding(
+          padding: const EdgeInsets.all(25),
+          child: SingleChildScrollView(
+            child: Form(
+              key: formkey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  InputLoginDetails(
+                      emailController: emailController,
+                      passwordController: passwordController,
+                      confirmPasswordController: confirmPasswordController,
+                      loginCubit: loginCubit),
+                  CustomCheckBoxRow(loginCubit: loginCubit),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.07,
+                  ),
+                  Center(
+                    child: ConditionalBuilder(
+                      condition: state is! LoginLoadingState,
+                      builder: (context) {
+                        return CustomActionButton(
+                          buttonText: 'Login',
+                          onTap: () {
+                            if (formkey.currentState!.validate()) {}
                           },
-                          icon: const Icon(Icons.arrow_forward_ios),
-                        ),
-                      ),
+                        );
+                      },
+                      fallback: (context) => const CircularProgressIndicator(),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.098,
-                    ),
-                    /*Center(
-                      child: DefoltSvgImage(
-                          image: 'assets/images/Tabor_Horsintal.svg',
-                          width: MediaQuery.of(context).size.width - 100,
-                          hight: MediaQuery.of(context).size.height * 0.128),
-                    ),*/
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.07,
-                    ),
-                    /*Center(
-                      child: specialtext(
-                        text: "مرحباََ بعودتك",
-                        fsize: 28,
-                        talign: TextAlign.center,
-                        fweight: FontWeight.w500,
-                        fcolor: const Color(0xff009c7b),
-                      ),
-                    ),*/
-                    /*SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.03,
-                    ),*/
-                    Padding(
-                      padding: const EdgeInsets.only(right: 32, left: 32),
-                      child: CustomAuthenticationTextformfield(
-                        controller: phoneControlar,
-                        type: TextInputType.emailAddress,
-                        label: label,
-                        isPassword:
-                            BlocProvider.of<LoginCubit>(context).isPassword,
-                        radius: 8,
-                        fontStyle: Styles.styleBlackRussian18,
-                        width: double.infinity,
-                        validate: (value) {
-                          if (value == null || value.isEmpty) {
-                            /*customToastText(
-                              toastMessage: 'Please enter your email', state: ToastStates.error);*/
-                            return 'Please enter your email';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 32, left: 32, top: 16, bottom: 20),
-                      child: CustomAuthenticationTextformfield(
-                          controller: passwordControlar,
-                          type: TextInputType.visiblePassword,
-                          label: '',
-                          isPassword: LoginCubit.get(context).isPassword,
-                          radius: 8,
-                          fontStyle: Styles.styleBlackRussian18,
-                          width: double.infinity),
-                      /*defaultFormField2(
-                          width: double.infinity,
-                          controller: passwordControlar,
-                          type: TextInputType.visiblePassword,
-                          suffix: loginCubit.isPassword
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                          suffixPressed: (() {
-                            loginCubit.changePasswordVisabilty();
-                          }),
-                          validate: (value) {
-                            if (value == null || value.isEmpty) {
-                              customToastText(
-                                toastMessage: 'Please enter the password',
-                                state: ToastStates.error);
-                              return '';
-                            }
-                            return null;
-                          },
-                          label: ' كلمة المرور',
-                          fcolor: const Color(0xff161616),
-                          isPassword: loginCubit.isPassword),*/
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Checkbox(
-                          value: loginCubit.isChecked,
-                          onChanged: (value) {
-                            loginCubit.changeCheckBox();
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2)),
-                          side: MaterialStateBorderSide.resolveWith(
-                              ((states) => const BorderSide(
-                                    color: Color(0xff009c7b),
-                                  ))),
-                        ),
-                        const Text('Remember me '),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.height * 0.07,
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: Text(
-                            'forget password ?',
-                            style: Styles.styleBlackRussian18,
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.07,
-                    ),
-                    Center(
-                      child: ConditionalBuilder(
-                        condition: state is! LoginLoadingState,
-                        builder: (context) {
-                          return const CustomActionButton(buttonText: 'Login');
-                        },
-                        fallback: (context) =>
-                            const CircularProgressIndicator(),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.037,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 35, right: 35),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Opacity(
-                            opacity: 0.20000000298023224,
-                            child: Container(
-                                width: 70,
-                                height: 2,
-                                decoration: const BoxDecoration(
-                                    color: Color(0xff161616))),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          const Opacity(
-                            opacity: 0.699999988079071,
-                            child: Text("او التسجيل بأستخدام",
-                                style: TextStyle(
-                                    color: Color(0xff161616),
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: "ReadexPro",
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 14.0),
-                                textAlign: TextAlign.center),
-                          ),
-                          const SizedBox(
-                            width: 2,
-                          ),
-                          Opacity(
-                            opacity: 0.20000000298023224,
-                            child: Container(
-                                width: 70,
-                                height: 2,
-                                decoration: const BoxDecoration(
-                                    color: Color(0xff161616))),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.028,
-                    ),
-                    const Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CustomSvgImage(image: '', width: 35, height: 35),
-                        SizedBox(
-                          width: 61,
-                        ),
-                        CustomSvgImage(image: '', width: 35, height: 35),
-                      ],
-                    ),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.037,
+                  ),
+                  const CustomSeperatorRow(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.028,
+                  ),
+                  const CustomSocialMediaRow(),
+                  SizedBox(
+                    height: 140.h,
+                  ),
+                  const Center(
+                    child: CustomHaveAccountText(),
+                  )
+                ],
               ),
             ),
-          );
-        },
+          ),
+        );
+      },
+    );
+  }
+}
+
+class InputLoginDetails extends StatelessWidget {
+  const InputLoginDetails({
+    super.key,
+    required this.emailController,
+    required this.passwordController,
+    required this.confirmPasswordController,
+    required this.loginCubit,
+  });
+
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
+  final LoginCubit loginCubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CustomAuthenticationTextformfield(
+          controller: emailController,
+          type: TextInputType.emailAddress,
+          label: 'Email address',
+          validate: (value) {
+            if (value == null || value.isEmpty) {
+              /*customToastText(
+                toastMessage: 'Please enter your email', state: ToastStates.error);*/
+              return 'Please enter your email';
+            } else {
+              return null;
+            }
+          },
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        CustomAuthenticationTextformfield(
+          controller: passwordController,
+          type: TextInputType.visiblePassword,
+          label: 'Password',
+          isPassword: LoginCubit.get(context).isPassword,
+          validate: (value) {
+            if (value == null || value.isEmpty) {
+              /*customToastText(
+                toastMessage: 'Please enter your email', state: ToastStates.error);*/
+              return 'Please enter the password';
+            } else {
+              return null;
+            }
+          },
+          suffixPressed: () {
+            LoginCubit.get(context).changePasswordVisabilty();
+          },
+          suffix: LoginCubit.get(context).isPassword
+              ? Icons.visibility_outlined
+              : Icons.visibility_off_outlined,
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        CustomAuthenticationTextformfield(
+          controller: confirmPasswordController,
+          type: TextInputType.visiblePassword,
+          label: 'Confirm password',
+          isPassword: LoginCubit.get(context).isConfirmPassword,
+          suffix: loginCubit.isConfirmPassword
+              ? Icons.visibility_outlined
+              : Icons.visibility_off_outlined,
+          suffixPressed: () {
+            LoginCubit.get(context).changeConfirmPasswordVisabilty();
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class CustomHaveAccountText extends StatelessWidget {
+  const CustomHaveAccountText({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+        textAlign: TextAlign.start,
+        text: TextSpan(children: [
+          TextSpan(
+              text: "Don't have an account ?   ",
+              style: Styles.styleBlackRussian18),
+          TextSpan(
+              text: "Register",
+              style: Styles.styleBlackRussian18
+                  .copyWith(color: AppColors.oceanGreen),
+              recognizer: TapGestureRecognizer()..onTap = () {})
+        ]));
+  }
+}
+
+class CustomSocialMediaRow extends StatelessWidget {
+  const CustomSocialMediaRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        CustomSocialMediaButton(),
+        CustomSocialMediaButton(),
+        /*Container(
+          padding: const EdgeInsets.all(5),
+          width: MediaQuery.of(context).size.width / 2 - 40,
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppColors.grey)),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 5),
+                child: Image.asset(
+                  'assets/images/facebook.png',
+                  color: AppColors.facebookColor,
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              const SizedBox(
+                width: 30,
+              ),
+              const Text('Facebook'),
+            ],
+          ),
+        )*/
+      ],
+    );
+  }
+}
+
+class CustomSocialMediaButton extends StatelessWidget {
+  const CustomSocialMediaButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(5),
+      width: MediaQuery.of(context).size.width / 2 - 40,
+      height: 50,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: AppColors.grey)),
+      child: Row(
+        children: [
+          Image.asset(
+            'assets/images/google.png',
+            width: 40,
+            height: 40,
+            fit: BoxFit.fill,
+          ),
+          const SizedBox(
+            width: 30,
+          ),
+          const Text('Google'),
+        ],
       ),
+    );
+  }
+}
+
+class CustomSeperatorRow extends StatelessWidget {
+  const CustomSeperatorRow({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const CustomSeperatorLogin(),
+        const SizedBox(
+          width: 2,
+        ),
+        Text(
+          'OR Login using',
+          style: Styles.styleGrey14,
+        ),
+        const SizedBox(
+          width: 2,
+        ),
+        const CustomSeperatorLogin(),
+      ],
+    );
+  }
+}
+
+class CustomSeperatorLogin extends StatelessWidget {
+  const CustomSeperatorLogin({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: 0.20000000298023224,
+      child: Container(
+          width: 70,
+          height: 2,
+          decoration: const BoxDecoration(color: AppColors.blackRussian)),
     );
   }
 }

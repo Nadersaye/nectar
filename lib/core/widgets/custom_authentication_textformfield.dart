@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/utils/colors.dart';
+import 'package:nectar/core/utils/styles.dart';
 
 class CustomAuthenticationTextformfield extends StatelessWidget {
   const CustomAuthenticationTextformfield(
@@ -12,11 +14,10 @@ class CustomAuthenticationTextformfield extends StatelessWidget {
       this.prefix,
       this.suffix,
       this.onTap,
-      required this.isPassword,
+      this.isPassword = false,
       this.suffixPressed,
-      required this.radius,
-      required this.fontStyle,
-      required this.width});
+      this.radius = 12.0,
+      this.width = double.infinity});
   final TextEditingController controller;
   final TextInputType type;
   final FormFieldValidator<String>? validate;
@@ -29,7 +30,6 @@ class CustomAuthenticationTextformfield extends StatelessWidget {
   final bool isPassword;
   final VoidCallback? suffixPressed;
   final double radius;
-  final TextStyle fontStyle;
   final double width;
   @override
   Widget build(BuildContext context) {
@@ -49,8 +49,16 @@ class CustomAuthenticationTextformfield extends StatelessWidget {
       validator: validate,
       obscureText: isPassword,
       decoration: InputDecoration(
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+          borderSide: const BorderSide(color: AppColors.oceanGreen),
+        ),
+        /*enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+          borderSide: const BorderSide(color: AppColors.oceanGreen),
+        ),*/
         labelText: label,
-        labelStyle: fontStyle,
+        labelStyle: Styles.styleGrey14,
         suffixIcon: suffix != Null
             ? IconButton(onPressed: suffixPressed, icon: Icon(suffix))
             : null,
@@ -62,57 +70,3 @@ class CustomAuthenticationTextformfield extends StatelessWidget {
     );
   }
 }
-/*
-Widget defaultFormField2({
-  required TextEditingController controller,
-  required TextInputType type,
-  required FormFieldValidator<String>? validate,
-  ValueChanged<String>? onSubmit,
-  Function? onChanged,
-  required String label,
-  IconData? prefix,
-  IconData? suffix,
-  GestureTapCallback? onTap,
-  bool isPassword = false,
-  VoidCallback? suffixPressed,
-  double Radiu = 8,
-  double fsize = 14,
-  FontWeight fweight = FontWeight.w500,
-  Color? fcolor = const Color(0xff009c7b),
-  String ffamily = "ReadexPro",
-  FontStyle fstyle = FontStyle.normal,
-  required double width,
-}) =>
-    Opacity(
-      opacity: .5,
-      child: TextFormField(
-        textDirection: TextDirection.rtl,
-        textAlign: TextAlign.start,
-        controller: controller,
-        keyboardType: type,
-        onFieldSubmitted: (s) {
-          print(s);
-        },
-        onTap: onTap,
-        onChanged: onSubmit,
-        validator: validate,
-        obscureText: isPassword,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(
-              color: fcolor,
-              fontWeight: fweight,
-              fontFamily: ffamily,
-              fontStyle: fstyle,
-              fontSize: fsize),
-          suffixIcon: suffix != Null
-              ? IconButton(onPressed: suffixPressed, icon: Icon(suffix))
-              : null,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(Radiu)),
-            borderSide: const BorderSide(color: Colors.red),
-          ),
-        ),
-      ),
-    );
- */

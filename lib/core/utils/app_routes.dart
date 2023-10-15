@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nectar/features/home/presentation/views/screens/product_details_view.dart';
+import '../../features/authentication/presentation/views/screens/login_view.dart';
 import '../../features/home/presentation/views/screens/cart_view.dart';
 import '../../features/home/presentation/views/screens/explore_products_view.dart';
 import '../../features/home/presentation/views/screens/home_view.dart';
@@ -16,6 +17,7 @@ abstract class AppRoutes {
   static const String exploreProductsView = '/ExploreProductsView';
   static const String showProductsView = '/ShowProductsView';
   static const String onboardingView = '/OnboardingView';
+  static const String loginView = '/LoginView';
 
   static final router = GoRouter(
     routes: <RouteBase>[
@@ -60,6 +62,13 @@ abstract class AppRoutes {
         path: onboardingView,
         builder: (BuildContext context, GoRouterState state) {
           return const OnboardingView(
+              /*productsItems: state.extra as List<CartItemModel>, categoryName: state.extra as String ,*/);
+        },
+      ),
+      GoRoute(
+        path: loginView,
+        builder: (BuildContext context, GoRouterState state) {
+          return const LoginView(
               /*productsItems: state.extra as List<CartItemModel>, categoryName: state.extra as String ,*/);
         },
       ),
