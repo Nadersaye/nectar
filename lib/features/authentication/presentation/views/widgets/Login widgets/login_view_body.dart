@@ -1,19 +1,15 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nectar/core/models/toast_states.dart';
-import 'package:nectar/core/utils/colors.dart';
-import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_authentication_textformfield.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
-import 'package:nectar/features/authentication/presentation/views/widgets/Login%20widgets/custom_seperator_authentication.dart';
 import '../../../../../../core/widgets/custom_toast_text.dart';
 import '../../../manager/cubit/login_cubit.dart';
+import 'another_option_authentication_text.dart';
 import 'custom_checkbox_row.dart';
 import 'custom_seperator_row.dart';
-import 'custom_socialmedia_button.dart';
 import 'custom_socialmedia_row.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -82,7 +78,7 @@ class LoginViewBody extends StatelessWidget {
                     height: 140.h,
                   ),
                   const Center(
-                    child: CustomHaveAccountText(),
+                    child: AnotherOptionText(),
                   )
                 ],
               ),
@@ -169,27 +165,5 @@ class InputLoginDetails extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class CustomHaveAccountText extends StatelessWidget {
-  const CustomHaveAccountText({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RichText(
-        textAlign: TextAlign.start,
-        text: TextSpan(children: [
-          TextSpan(
-              text: "Don't have an account ?   ",
-              style: Styles.styleBlackRussian18),
-          TextSpan(
-              text: "Register",
-              style: Styles.styleBlackRussian18
-                  .copyWith(color: AppColors.oceanGreen),
-              recognizer: TapGestureRecognizer()..onTap = () {})
-        ]));
   }
 }
