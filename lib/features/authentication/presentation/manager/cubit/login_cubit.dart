@@ -8,15 +8,9 @@ class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitial());
   static LoginCubit get(context) => BlocProvider.of(context);
   bool isPassword = true;
-  bool isConfirmPassword = true;
   bool isChecked = false;
   void changePasswordVisabilty() {
     isPassword = !isPassword;
-    emit(ChangePasswordVizabilityState());
-  }
-
-  void changeConfirmPasswordVisabilty() {
-    isConfirmPassword = !isConfirmPassword;
     emit(ChangePasswordVizabilityState());
   }
 

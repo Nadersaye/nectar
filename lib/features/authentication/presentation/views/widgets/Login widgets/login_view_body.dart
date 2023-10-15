@@ -151,18 +151,6 @@ class InputLoginDetails extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        CustomAuthenticationTextformfield(
-          controller: confirmPasswordController,
-          type: TextInputType.visiblePassword,
-          label: 'Confirm password',
-          isPassword: LoginCubit.get(context).isConfirmPassword,
-          suffix: loginCubit.isConfirmPassword
-              ? Icons.visibility_outlined
-              : Icons.visibility_off_outlined,
-          suffixPressed: () {
-            LoginCubit.get(context).changeConfirmPasswordVisabilty();
-          },
-        ),
       ],
     );
   }
