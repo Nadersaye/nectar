@@ -32,8 +32,9 @@ class CustomCheckBoxRow extends StatelessWidget {
         GestureDetector(
           onTap: () {},
           child: Text(
-            'forget password ?',
-            style: Styles.styleGrey14.copyWith(color: AppColors.oceanGreen),
+            'Forget password ?',
+            style: Styles.styleMagnoliaWhite16.copyWith(
+                color: AppColors.oceanGreen, fontWeight: FontWeight.w700),
           ),
         )
       ],

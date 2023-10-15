@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-
+import 'package:nectar/core/utils/styles.dart';
 import '../../../../../../core/utils/colors.dart';
 
-class CustomSocialMediaButton extends StatelessWidget {
-  const CustomSocialMediaButton({
+class CustomGoogleButton extends StatelessWidget {
+  const CustomGoogleButton({
     super.key,
+    this.image = 'assets/images/google.png',
+    this.socialmediaName = 'Google',
   });
-
+  final String image;
+  final String socialmediaName;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,15 +22,15 @@ class CustomSocialMediaButton extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            'assets/images/google.png',
+            image,
             width: 40,
             height: 40,
-            fit: BoxFit.fill,
+            fit: BoxFit.contain,
           ),
-          const SizedBox(
-            width: 30,
+          Text(
+            socialmediaName,
+            style: Styles.styleBlackRussian18,
           ),
-          const Text('Google'),
         ],
       ),
     );

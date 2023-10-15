@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/utils/styles.dart';
-import 'custom_seperator_authentication.dart';
+import '../../../../../core/utils/styles.dart';
+import 'Login widgets/custom_seperator_authentication.dart';
 
 class CustomSeperatorRow extends StatelessWidget {
-  const CustomSeperatorRow({
-    super.key,
-  });
-
+  const CustomSeperatorRow({super.key, this.typeSeperatorText = 'Login'});
+  final String typeSeperatorText;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -18,7 +16,7 @@ class CustomSeperatorRow extends StatelessWidget {
           width: 2,
         ),
         Text(
-          'OR Login using',
+          'OR $typeSeperatorText using',
           style: Styles.styleGrey14,
         ),
         const SizedBox(
