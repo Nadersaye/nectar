@@ -8,10 +8,12 @@ import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_authentication_textformfield.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
+import 'package:nectar/features/authentication/presentation/views/widgets/Login%20widgets/custom_seperator_authentication.dart';
 import '../../../../../../core/widgets/custom_toast_text.dart';
 import '../../../manager/cubit/login_cubit.dart';
 import 'custom_checkbox_row.dart';
 import 'custom_socialmedia_button.dart';
+import 'custom_socialmedia_row.dart';
 
 class LoginViewBody extends StatelessWidget {
   const LoginViewBody({super.key});
@@ -201,7 +203,7 @@ class CustomSeperatorRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const CustomSeperatorLogin(),
+        const CustomSeperatorAuthentication(),
         const SizedBox(
           width: 2,
         ),
@@ -212,25 +214,8 @@ class CustomSeperatorRow extends StatelessWidget {
         const SizedBox(
           width: 2,
         ),
-        const CustomSeperatorLogin(),
+        const CustomSeperatorAuthentication(),
       ],
-    );
-  }
-}
-
-class CustomSeperatorLogin extends StatelessWidget {
-  const CustomSeperatorLogin({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Opacity(
-      opacity: 0.20000000298023224,
-      child: Container(
-          width: 70,
-          height: 2,
-          decoration: const BoxDecoration(color: AppColors.blackRussian)),
     );
   }
 }
