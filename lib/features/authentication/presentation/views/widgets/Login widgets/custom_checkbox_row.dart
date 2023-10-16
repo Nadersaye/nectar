@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
-import '../../../manager/cubit/login_cubit.dart';
+import '../../../manager/cubit/auth_cubit.dart';
 
 class CustomCheckBoxRow extends StatelessWidget {
   const CustomCheckBoxRow({

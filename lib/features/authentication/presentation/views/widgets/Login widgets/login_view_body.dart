@@ -7,7 +7,7 @@ import 'package:nectar/core/widgets/custom_button.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
 import '../../../../../../core/widgets/custom_toast_text.dart';
-import '../../../manager/cubit/login_cubit.dart';
+import '../../../manager/cubit/auth_cubit.dart';
 import '../another_option_authentication_text.dart';
 import 'custom_checkbox_row.dart';
 import '../custom_seperator_row.dart';
@@ -68,37 +68,9 @@ class LoginViewBody extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(15, 0, 25, 40),
                       child: CustomCheckBoxRow(loginCubit: loginCubit),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Center(
-                            child: ConditionalBuilder(
-                              condition: state is! LoginLoadingState,
-                              builder: (context) {
-                                return CustomActionButton(
-                                  buttonText: 'Login',
-                                  onTap: () {
-                                    if (formkey.currentState!.validate()) {}
-                                  },
-                                );
-                              },
-                              fallback: (context) =>
-                                  const CircularProgressIndicator(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const CustomSeperatorRow(),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          const CustomSocialMediaRow(),
-                        ],
-                      ),
+                    ActionAuthWidgets(
+                      formkey: formkey,
+                      state: state,
                     ),
                     const Spacer(),
                     const Padding(
@@ -112,6 +84,51 @@ class LoginViewBody extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class ActionAuthWidgets extends StatelessWidget {
+  const ActionAuthWidgets({
+    super.key,
+    required this.formkey,
+    required this.state,
+  });
+
+  final GlobalKey<FormState> formkey;
+  final LoginStates state;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Center(
+            child: ConditionalBuilder(
+              condition: state is! LoginLoadingState,
+              builder: (context) {
+                return CustomActionButton(
+                  buttonText: 'Login',
+                  onTap: () {
+                    if (formkey.currentState!.validate()) {}
+                  },
+                );
+              },
+              fallback: (context) => const CircularProgressIndicator(),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const CustomSeperatorRow(),
+          const SizedBox(
+            height: 30,
+          ),
+          const CustomSocialMediaRow(),
+        ],
+      ),
     );
   }
 }

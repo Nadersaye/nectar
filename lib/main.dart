@@ -6,7 +6,7 @@ import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:nectar/features/authentication/presentation/manager/cubit/login_cubit.dart';
+import 'package:nectar/features/authentication/presentation/manager/cubit/auth_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
