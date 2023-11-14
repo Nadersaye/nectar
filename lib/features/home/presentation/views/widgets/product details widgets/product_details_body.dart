@@ -5,9 +5,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
-import 'package:nectar/features/home/presentation/views/widgets/product%20details%20widgets/toggling_product_image.dart';
 import '../../../../../../core/widgets/increase_decrease_product_count.dart';
 import 'product_details_appbar.dart';
+import 'toggling_product_image.dart';
 
 class ProductDetailsBody extends StatefulWidget {
   const ProductDetailsBody({super.key});

@@ -33,11 +33,9 @@ class ExploreProductsViewBody extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             height: 50,
-            child: CustomTextFormField(
-                searchController: searchController,
-                onChanged: (String test) {
-                  debugPrint(test);
-                }),
+            child: CustomTextFormField(onChanged: (String test) {
+              debugPrint(test);
+            }),
           ),
           const SizedBox(
             height: 20,

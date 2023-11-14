@@ -6,8 +6,7 @@ import '../widgets/shop widgets/shop_view_appbar.dart';
 import '../widgets/shop widgets/toggling_offers_imgae.dart';
 
 class ShopView extends StatelessWidget {
-  const ShopView({super.key, required this.searchController});
-  final TextEditingController searchController;
+  const ShopView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +26,7 @@ class ShopView extends StatelessWidget {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-              child: CustomTextFormField(
-                  searchController: searchController, onChanged: (value) {}),
+              child: CustomTextFormField(onChanged: (value) {}),
             ),
           ),
           SliverToBoxAdapter(

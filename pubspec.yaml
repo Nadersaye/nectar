@@ -47,6 +47,7 @@ dependencies:
   go_router: ^11.1.2
   lottie: ^2.6.0
   material_dialogs: ^1.1.4
+  meta: ^1.9.1
   modal_bottom_sheet: ^2.1.2
   smooth_page_indicator: ^1.1.0
   solid_bottom_sheet: ^0.1.10
