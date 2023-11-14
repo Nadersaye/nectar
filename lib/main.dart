@@ -7,6 +7,7 @@ import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:nectar/features/authentication/presentation/manager/cubit/auth_cubit.dart';
+import 'package:nectar/features/home/presentation/manager/manage%20navigation%20cubit/manage_navigation_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,8 +50,15 @@ class _NectarAppState extends State<NectarApp> {
       designSize: const Size(414, 896),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: BlocProvider(
-        create: (context) => LoginCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => LoginCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ManageNavigationCubit(),
+          ),
+        ],
         child: MaterialApp.router(
           routerConfig: AppRoutes.router,
           debugShowCheckedModeBanner: false,
