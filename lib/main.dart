@@ -8,6 +8,8 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:nectar/features/authentication/presentation/manager/cubit/auth_cubit.dart';
 import 'package:nectar/features/home/presentation/manager/manage%20navigation%20cubit/manage_navigation_cubit.dart';
+import 'features/home/presentation/manager/manage favourite cubit/manage_favourite_cubit.dart';
+import 'features/home/presentation/manager/toggle images cubit/toggle_images_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +59,12 @@ class _NectarAppState extends State<NectarApp> {
           ),
           BlocProvider(
             create: (context) => ManageNavigationCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ToggleImagesCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ManageFavouriteCubit(),
           ),
         ],
         child: MaterialApp.router(
