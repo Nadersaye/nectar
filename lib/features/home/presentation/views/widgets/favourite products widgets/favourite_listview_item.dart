@@ -1,17 +1,23 @@
 import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
+import 'package:nectar/features/home/presentation/manager/manage%20favourite%20cubit/manage_favourite_cubit.dart';
 import '../../../../../../core/models/cart_item_model.dart';
 import '../product details widgets/custom_appbar_icon.dart';
 
 class FavouriteProductsListViewItem extends StatefulWidget {
-  const FavouriteProductsListViewItem(
-      {super.key, required this.deleteItem, required this.productItem});
+  const FavouriteProductsListViewItem({
+    super.key,
+    required this.deleteItem,
+    required this.productItem,
+    this.onPressed,
+  });
   final Function deleteItem;
   final CartItemModel productItem;
-
+  final dynamic Function()? onPressed;
   @override
   State<FavouriteProductsListViewItem> createState() =>
       _FavouriteProductsListViewItemState();
@@ -19,7 +25,12 @@ class FavouriteProductsListViewItem extends StatefulWidget {
 
 class _FavouriteProductsListViewItemState
     extends State<FavouriteProductsListViewItem> {
-  bool changedIcon = false;
+  @override
+  void initState() {
+    ManageFavouriteCubit.get(context).manageIconAndColor();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -61,17 +72,18 @@ class _FavouriteProductsListViewItemState
                 const SizedBox(
                   width: 20,
                 ),
-                CustomIcon(
-                  onPressed: () {
-                    setState(() {
-                      changedIcon = !changedIcon;
-                    });
+                BlocBuilder<ManageFavouriteCubit, ManageFavouriteState>(
+                  builder: (context, state) {
+                    var favouriteCubit = ManageFavouriteCubit.get(context);
+                    return CustomIcon(
+                      onPressed: widget.onPressed,
+                      icon: Icon(
+                        favouriteCubit.icon,
+                        size: 25.r,
+                      ),
+                      iconColor: favouriteCubit.color,
+                    );
                   },
-                  icon: Icon(
-                    changeIcon(changedIcon),
-                    size: 25.r,
-                  ),
-                  iconColor: changeIconColor(),
                 ),
               ],
             ),
@@ -101,14 +113,6 @@ class _FavouriteProductsListViewItemState
         ),*/
           ),
     );
-  }
-
-  IconData changeIcon(bool changedIcon) {
-    return changedIcon ? Icons.favorite : Icons.favorite_border_outlined;
-  }
-
-  Color changeIconColor() {
-    return changedIcon ? Colors.red : AppColors.grey;
   }
 }
 
