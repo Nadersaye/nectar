@@ -20,37 +20,53 @@ class ToggolingOffersImage extends StatefulWidget {
 class _ToggolingOffersImageState extends State<ToggolingOffersImage> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 23.5),
-      child: Container(
+    return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 23.5),
         height: 115,
         width: double.infinity,
         decoration: BoxDecoration(
           color: AppColors.honeydew,
           borderRadius: BorderRadius.circular(15.r),
         ),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: CustomImageSlider(
-                items: widget.items,
-                aspectRactio: 367 / 115,
-                height: double.infinity,
-                autoNavigate: true,
-                fitImage: widget.fitImage,
-              ),
-            ),
-            Positioned(
-                bottom: widget.spaceBottom,
-                left: MediaQuery.of(context).size.width / 2 -
-                    (widget.items.length * 18),
-                child: CustomDotIndicator(
-                  items: widget.items,
-                ))
-          ],
+        child: ToggolingOffersImageContent(
+            items: widget.items,
+            fitImage: widget.fitImage,
+            spaceBottom: widget.spaceBottom));
+  }
+}
+
+class ToggolingOffersImageContent extends StatelessWidget {
+  const ToggolingOffersImageContent({
+    super.key,
+    required this.items,
+    required this.fitImage,
+    required this.spaceBottom,
+  });
+
+  final List<String> items;
+  final BoxFit fitImage;
+  final double spaceBottom;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: CustomImageSlider(
+            items: items,
+            aspectRactio: 367 / 115,
+            height: double.infinity,
+            autoNavigate: true,
+            fitImage: fitImage,
+          ),
         ),
-      ),
+        Positioned(
+            bottom: spaceBottom,
+            left: MediaQuery.of(context).size.width / 2 - (items.length * 18),
+            child: CustomDotIndicator(
+              items: items,
+            ))
+      ],
     );
   }
 }
