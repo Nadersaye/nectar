@@ -37,12 +37,12 @@ class CustomProductCard extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.asset('assets/images/apple.png'),
-                  AnimatedOpacity(
-                    opacity: isOffer ? 1 : 0,
-                    duration: Duration.zero,
-                    child: PositionedDirectional(
-                      start: 0,
-                      top: 0,
+                  PositionedDirectional(
+                    start: 0,
+                    top: 0,
+                    child: AnimatedOpacity(
+                      opacity: isOffer ? 1 : 0,
+                      duration: Duration.zero,
                       child: Container(
                         color: AppColors.lightRed,
                         child: Text(

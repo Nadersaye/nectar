@@ -35,9 +35,9 @@ class HomeView extends StatelessWidget {
                       icon: Icon(Icons.manage_search_outlined),
                       label: 'Explore'),
                   BottomNavigationBarItem(
-                      icon: Icon(Icons.favorite_outline), label: 'Favorite'),
-                  BottomNavigationBarItem(
                       icon: Icon(Icons.shopping_cart_outlined), label: 'Cart'),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.favorite_outline), label: 'Favorite'),
                   BottomNavigationBarItem(
                       icon: Icon(Icons.person_2_outlined), label: 'person'),
                 ]),
