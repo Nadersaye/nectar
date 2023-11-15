@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:nectar/core/utils/constants.dart';
+
+import '../../features/home/presentation/manager/toggle images cubit/toggle_images_cubit.dart';
 
 // ignore: must_be_immutable
 class CustomImageSlider extends StatefulWidget {
@@ -50,16 +51,10 @@ class _CustomImageSliderState extends State<CustomImageSlider> {
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
               onPageChanged: (value, reason) {
-                changeCurrentIndexValue(value);
+                ToggleImagesCubit.get(context).changeCurrentIndexValue(value);
               },
               scrollDirection: Axis.horizontal,
               scrollPhysics: const BouncingScrollPhysics())),
     );
-  }
-
-  void changeCurrentIndexValue(int value) {
-    setState(() {
-      currentIndex = value;
-    });
   }
 }
