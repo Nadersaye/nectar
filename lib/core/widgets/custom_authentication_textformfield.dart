@@ -17,7 +17,8 @@ class CustomAuthenticationTextformfield extends StatelessWidget {
       this.isPassword = false,
       this.suffixPressed,
       this.radius = 12.0,
-      this.width = double.infinity});
+      this.width = double.infinity,
+      this.autovalidateMode});
   final TextEditingController controller;
   final TextInputType type;
   final FormFieldValidator<String>? validate;
@@ -31,9 +32,12 @@ class CustomAuthenticationTextformfield extends StatelessWidget {
   final VoidCallback? suffixPressed;
   final double radius;
   final double width;
+  final AutovalidateMode? autovalidateMode;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: autovalidateMode,
+      cursorColor: AppColors.oceanGreen,
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
@@ -53,13 +57,17 @@ class CustomAuthenticationTextformfield extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(radius)),
           borderSide: const BorderSide(color: AppColors.oceanGreen),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+          borderSide: const BorderSide(color: AppColors.oceanGreen),
+        ),
         /*enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(radius)),
           borderSide: const BorderSide(color: AppColors.oceanGreen),
         ),*/
         labelText: label,
         labelStyle: Styles.styleGrey14,
-        suffixIcon: suffix != Null
+        suffixIcon: suffix != null
             ? IconButton(onPressed: suffixPressed, icon: Icon(suffix))
             : null,
         border: OutlineInputBorder(
