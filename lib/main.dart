@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,13 +8,22 @@ import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:nectar/features/authentication/presentation/manager/cubit/auth_cubit.dart';
 import 'package:nectar/features/home/presentation/manager/manage%20navigation%20cubit/manage_navigation_cubit.dart';
 import 'features/home/presentation/manager/manage favourite cubit/manage_favourite_cubit.dart';
 import 'features/home/presentation/manager/toggle images cubit/toggle_images_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  Platform.isAndroid
+      ? await Firebase.initializeApp(
+          options: const FirebaseOptions(
+              apiKey: "AIzaSyBNoqNV2Bp3ZmrEz_N81xq4jpQP7POH5hg",
+              appId: "1:239642353975:android:0db659028a2eeb9419bab2",
+              messagingSenderId: "239642353975",
+              projectId: "nectar-1ff4d",
+              storageBucket: "nectar-1ff4d.appspot.com"))
+      : await Firebase.initializeApp();
   Stripe.publishableKey = StripeKeys.publishablekey;
   Stripe.merchantIdentifier = 'string';
   await Stripe.instance.applySettings();
@@ -54,9 +65,6 @@ class _NectarAppState extends State<NectarApp> {
       splitScreenMode: true,
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => LoginCubit(),
-          ),
           BlocProvider(
             create: (context) => ManageNavigationCubit(),
           ),
