@@ -27,7 +27,7 @@ class OnboardingViewBody extends StatelessWidget {
           ),
           CustomActionButton(
             onTap: () {
-              AppRoutes.router.push(AppRoutes.homeView);
+              AppRoutes.router.push(AppRoutes.loginView);
             },
             buttonText: 'Login',
             backgroundColor: Colors.transparent,
