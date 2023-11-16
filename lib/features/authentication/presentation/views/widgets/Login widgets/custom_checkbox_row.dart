@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
-import '../../../manager/cubit/auth_cubit.dart';
 
-class CustomCheckBoxRow extends StatelessWidget {
+class CustomCheckBoxRow extends StatefulWidget {
   const CustomCheckBoxRow({
     super.key,
-    required this.loginCubit,
   });
-  final LoginCubit loginCubit;
 
+  @override
+  State<CustomCheckBoxRow> createState() => _CustomCheckBoxRowState();
+}
+
+class _CustomCheckBoxRowState extends State<CustomCheckBoxRow> {
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Checkbox(
-          value: loginCubit.isChecked,
+          value: isChecked,
           onChanged: (value) {
-            loginCubit.changeCheckBox();
+            setState(() {
+              isChecked = !isChecked;
+            });
           },
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
           side:
