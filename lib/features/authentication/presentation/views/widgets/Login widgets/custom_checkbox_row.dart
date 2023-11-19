@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../../../../../core/utils/colors.dart';
-import '../../../../../../core/utils/styles.dart';
+import 'custom_forget_password.dart';
 
 class CustomCheckBoxRow extends StatefulWidget {
   const CustomCheckBoxRow({
     super.key,
+    required this.emailController,
+    this.onTap,
   });
-
+  final TextEditingController emailController;
+  final void Function()? onTap;
   @override
   State<CustomCheckBoxRow> createState() => _CustomCheckBoxRowState();
 }
@@ -34,14 +37,7 @@ class _CustomCheckBoxRowState extends State<CustomCheckBoxRow> {
         ),
         const Text('Remember me '),
         const Spacer(),
-        GestureDetector(
-          onTap: () {},
-          child: Text(
-            'Forget password ?',
-            style: Styles.styleMagnoliaWhite16.copyWith(
-                color: AppColors.oceanGreen, fontWeight: FontWeight.w700),
-          ),
-        )
+        CustomForgetPassword(customWidget: widget)
       ],
     );
   }

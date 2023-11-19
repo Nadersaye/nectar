@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
-
 import '../../../../../core/utils/assets.dart';
 import 'onboarding_welcome_text.dart';
 
