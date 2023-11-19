@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../data/models/check_email_model.dart';
-import '../widgets/check email/check_email.appbar.dart';
-import '../widgets/check email/check_email_body.dart';
+import '../../../authentication/data/models/check_email_model.dart';
+import 'check email/check_email.appbar.dart';
+import 'check email/check_email_body.dart';
 
 class CheckEmail extends StatelessWidget {
   const CheckEmail({super.key, required this.checkEmailModel});
