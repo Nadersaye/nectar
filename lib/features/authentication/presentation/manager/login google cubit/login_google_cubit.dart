@@ -13,7 +13,10 @@ class LoginGoogleCubit extends Cubit<LoginGoogleState> {
     try {
       emit(LoginGoogleLoading());
       GoogleSignIn googleSignIn = GoogleSignIn();
-      await googleSignIn.disconnect();
+      bool isSignedIn = await googleSignIn.isSignedIn();
+      if (isSignedIn) {
+        await googleSignIn.disconnect();
+      }
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       // Obtain the auth details from the request
