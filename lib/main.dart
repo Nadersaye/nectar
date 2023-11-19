@@ -1,15 +1,16 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nectar/core/stripe%20payment/stripe_keys.dart';
 import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:nectar/features/home/presentation/manager/manage%20navigation%20cubit/manage_navigation_cubit.dart';
+import 'core/function/config_loading.dart';
 import 'features/home/presentation/manager/manage favourite cubit/manage_favourite_cubit.dart';
+import 'features/home/presentation/manager/manage navigation cubit/manage_navigation_cubit.dart';
 import 'features/home/presentation/manager/toggle images cubit/toggle_images_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -27,6 +28,7 @@ void main() async {
   Stripe.publishableKey = StripeKeys.publishablekey;
   Stripe.merchantIdentifier = 'string';
   await Stripe.instance.applySettings();
+  configLoading();
   AwesomeNotifications().initialize(
       null,
       [
@@ -49,11 +51,11 @@ class NectarApp extends StatefulWidget {
 class _NectarAppState extends State<NectarApp> {
   @override
   void initState() {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    /*AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
-    });
+    });*/
     super.initState();
   }
 
@@ -76,11 +78,11 @@ class _NectarAppState extends State<NectarApp> {
           ),
         ],
         child: MaterialApp.router(
-          routerConfig: AppRoutes.router,
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-              primaryColor: AppColors.oceanGreen, fontFamily: 'Gilroy'),
-        ),
+            routerConfig: AppRoutes.router,
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+                primaryColor: AppColors.oceanGreen, fontFamily: 'Gilroy'),
+            builder: EasyLoading.init()),
       ),
     );
   }
