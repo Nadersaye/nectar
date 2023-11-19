@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nectar/features/authentication/presentation/manager/validate%20login/validate_login_cubit.dart';
 
 import '../../../../../../core/widgets/custom_authentication_textformfield.dart';
 
@@ -6,30 +8,18 @@ class InputLoginDetails extends StatefulWidget {
   const InputLoginDetails({
     super.key,
     required this.autovalidateMode,
+    required this.emailController,
+    required this.passwordController,
   });
   final AutovalidateMode autovalidateMode;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   @override
   State<InputLoginDetails> createState() => _InputLoginDetailsState();
 }
 
 class _InputLoginDetailsState extends State<InputLoginDetails> {
-  late TextEditingController emailController;
-  late TextEditingController passwordController;
   bool isPassword = true;
-  @override
-  void initState() {
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,7 +28,7 @@ class _InputLoginDetailsState extends State<InputLoginDetails> {
       children: [
         CustomAuthenticationTextformfield(
           autovalidateMode: widget.autovalidateMode,
-          controller: emailController,
+          controller: widget.emailController,
           type: TextInputType.emailAddress,
           label: 'Email address',
           validate: (value) {
@@ -54,12 +44,13 @@ class _InputLoginDetailsState extends State<InputLoginDetails> {
         ),
         CustomAuthenticationTextformfield(
           autovalidateMode: widget.autovalidateMode,
-          controller: passwordController,
+          controller: widget.passwordController,
           type: TextInputType.visiblePassword,
           label: 'Password',
           isPassword: isPassword,
           validate: (value) {
-            if (value?.isEmpty ?? true) {
+            if (value?.isEmpty ??
+                true && BlocProvider.of<ValidateLoginCubit>(context).isLogin) {
               return 'Please enter the password';
             } else {
               return null;
