@@ -1,27 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nectar/core/widgets/custom_textformfield.dart';
+import 'package:nectar/features/home/presentation/manager/get%20best%20selling/get_best_selling_cubit.dart';
+import '../../manager/get exclusive offer cubit/get_exclusive_offer_cubit.dart';
+import '../widgets/shop widgets/best_selling_list_view.dart';
 import '../widgets/shop widgets/custom_exclusive_offer.dart';
-import '../widgets/shop widgets/shop_product_list_view.dart';
+import '../widgets/shop widgets/exclusive_offer_list_view.dart';
 import '../widgets/shop widgets/shop_view_appbar.dart';
 import '../widgets/shop widgets/toggling_offers_imgae.dart';
 
-class ShopView extends StatelessWidget {
+class ShopView extends StatefulWidget {
   const ShopView({super.key});
 
   @override
+  State<ShopView> createState() => _ShopViewState();
+}
+
+class _ShopViewState extends State<ShopView> {
+  List<String> items = [
+    'assets/images/adv1.jpg',
+    'assets/images/adv2.jpg',
+    'assets/images/adv4.jpg',
+  ];
+  @override
+  void initState() {
+    BlocProvider.of<GetBestSellingCubit>(context).getBestSelling();
+    BlocProvider.of<GetExclusiveOfferCubit>(context).getExclusiveOffer();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<String> items = [
-      'assets/images/adv1.jpg',
-      'assets/images/adv2.jpg',
-      'assets/images/adv4.jpg',
-    ];
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: CustomScrollView(
         slivers: [
           const SliverToBoxAdapter(
               child: ShopViewAppBar(
-            location: 'fayoum ,sanhour',
+            location: 'fayoum ',
           )),
           SliverToBoxAdapter(
             child: Padding(
@@ -41,8 +57,9 @@ class ShopView extends StatelessWidget {
             title: 'Exclusive Offer',
           )),
           const SliverToBoxAdapter(
-            child: ProductsListView(
-              isOffer: true,
+            child: Padding(
+              padding: EdgeInsetsDirectional.only(start: 25),
+              child: ExclusiveOfferListView(),
             ),
           ),
           const SliverToBoxAdapter(
@@ -50,8 +67,9 @@ class ShopView extends StatelessWidget {
             title: 'Best Selling',
           )),
           const SliverToBoxAdapter(
-            child: ProductsListView(
-              isOffer: false,
+            child: Padding(
+              padding: EdgeInsetsDirectional.only(start: 25),
+              child: BestSellingListView(),
             ),
           ),
           const SliverToBoxAdapter(
