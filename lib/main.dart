@@ -8,6 +8,7 @@ import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:nectar/core/utils/service_locator.dart';
 import 'core/function/config_loading.dart';
 import 'features/home/presentation/manager/manage favourite cubit/manage_favourite_cubit.dart';
 import 'features/home/presentation/manager/manage navigation cubit/manage_navigation_cubit.dart';
@@ -28,6 +29,7 @@ void main() async {
   Stripe.publishableKey = StripeKeys.publishablekey;
   Stripe.merchantIdentifier = 'string';
   await Stripe.instance.applySettings();
+  setupServiceLocator();
   configLoading();
   AwesomeNotifications().initialize(
       null,
