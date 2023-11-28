@@ -1,6 +1,6 @@
-import 'package:animated_digit/animated_digit.dart';
 import 'package:flutter/material.dart';
-import '../../../../../../core/widgets/increase_decrease_product_count.dart';
+import '../../../../../../core/models/product_item_model.dart';
+import '../product details widgets/custom_control_product_count.dart';
 import '../../../../../../core/models/cart_item_model.dart';
 import 'custom_delete_item_widget.dart';
 
@@ -57,17 +57,6 @@ class ProductCartDetails extends StatefulWidget {
 }
 
 class _ProductCartDetailsState extends State<ProductCartDetails> {
-  late AnimatedDigitController countController;
-  late AnimatedDigitController totalController;
-  @override
-  void initState() {
-    countController =
-        AnimatedDigitController(widget.productItem.countController);
-    totalController =
-        AnimatedDigitController(widget.productItem.countController);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -80,12 +69,19 @@ class _ProductCartDetailsState extends State<ProductCartDetails> {
             subTitle: widget.productItem.subTitle,
           ),
           const Spacer(),
-          IncreaseAndDecreaseProductCount(
-            countController: countController,
-            priceController: totalController,
-            price: widget.productItem.price,
-            isOfferProduct: widget.productItem.isOfferProduct,
-            offerPrice: widget.productItem.offerPrice,
+          CustomControlProductCount(
+            product: ProductItemModel(
+                title: '',
+                subtitle: '',
+                type: '',
+                category: '',
+                company: '',
+                imageUrl: '',
+                rate: 3,
+                benefits: '',
+                details: '',
+                price: 5,
+                offerPrice: 4), /////////////////
           ),
         ],
       ),

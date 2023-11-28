@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/models/product_item_model.dart';
 
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
 
 class CustomProductPrice extends StatelessWidget {
-  const CustomProductPrice(
-      {super.key,
-      required this.price,
-      required this.offerPrice,
-      required this.isOfferProduct});
-  final double price;
-  final double offerPrice;
-  final bool isOfferProduct;
+  const CustomProductPrice({
+    super.key,
+    required this.product,
+  });
+  final ProductItemModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +20,9 @@ class CustomProductPrice extends StatelessWidget {
                 text: 'Price : ',
                 style: Styles.styleBlackRussian18.copyWith(
                     color: AppColors.grey, fontWeight: FontWeight.w400)),
-            TextSpan(text: r'$' '$price', style: Styles.styleBlackRussian18)
+            TextSpan(
+                text: r'$' '${product.price}',
+                style: Styles.styleBlackRussian18)
           ]),
         ),
         secondChild: RichText(
@@ -32,17 +32,17 @@ class CustomProductPrice extends StatelessWidget {
                     color: AppColors.grey, fontWeight: FontWeight.w400),
                 children: [
               TextSpan(
-                text: '\$ ' '$offerPrice',
+                text: '\$ ' '${product.offerPrice}',
                 style: Styles.styleBlackRussian18,
               ),
               TextSpan(
-                text: '\n \$' '$price',
+                text: '\n \$' '${product.price}',
                 style: Styles.styleBlackRussian18.copyWith(
                     decoration: TextDecoration.lineThrough,
                     color: AppColors.grayHanin),
               ),
             ])),
-        crossFadeState: isOfferProduct
+        crossFadeState: product.offerPrice > 0
             ? CrossFadeState.showSecond
             : CrossFadeState.showFirst,
         duration: Duration.zero);

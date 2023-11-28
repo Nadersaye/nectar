@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nectar/core/models/product_item_model.dart';
 import '../../../../../../core/utils/colors.dart';
 import 'custom_appbar_icon.dart';
 import '../../../../../../core/widgets/custom_product_title_subtitle.dart';
 
 class ProductDetailsContent extends StatefulWidget {
-  const ProductDetailsContent({super.key});
-
+  const ProductDetailsContent({super.key, required this.product});
+  final ProductItemModel product;
   @override
   State<ProductDetailsContent> createState() => _ProductDetailsContentState();
 }
@@ -19,9 +20,9 @@ class _ProductDetailsContentState extends State<ProductDetailsContent> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const CustomProductTitleAndSubtitle(
-          title: '',
-          subTitle: '',
+        CustomProductTitleAndSubtitle(
+          title: widget.product.title,
+          subTitle: widget.product.subtitle,
         ),
         CustomIcon(
           onPressed: () {
