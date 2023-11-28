@@ -1,30 +1,26 @@
-import 'package:animated_digit/animated_digit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:nectar/core/models/product_item_model.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
-import '../../../../../../core/widgets/increase_decrease_product_count.dart';
+import 'custom_control_product_count.dart';
 import 'product_details_appbar.dart';
 import 'toggling_product_image.dart';
 
 class ProductDetailsBody extends StatefulWidget {
-  const ProductDetailsBody({super.key});
-
+  const ProductDetailsBody({super.key, required this.product});
+  final ProductItemModel product;
   @override
   State<ProductDetailsBody> createState() => _ProductDetailsBodyState();
 }
 
 class _ProductDetailsBodyState extends State<ProductDetailsBody> {
-  late AnimatedDigitController countController = AnimatedDigitController(1);
-  late AnimatedDigitController priceController = AnimatedDigitController(price);
+  //late AnimatedDigitController countController = AnimatedDigitController(1);
+  //late AnimatedDigitController priceController = AnimatedDigitController(price);
   final PageController pageController = PageController(initialPage: 0);
   late CarouselController carouselController;
-  static const double price = 4.99;
-  bool isOfferProduct = false;
-  double offerPrice = 3.2;
-  int currentIndex = 0;
   bool changedIcon = false;
   List<String> items = [
     'assets/images/apple.png',
@@ -39,8 +35,8 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
 
   @override
   void dispose() {
-    countController.dispose();
-    priceController.dispose();
+    // countController.dispose();
+    //priceController.dispose();
     super.dispose();
   }
 
@@ -64,12 +60,8 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                 const SizedBox(
                   height: 30,
                 ),
-                IncreaseAndDecreaseProductCount(
-                  countController: countController,
-                  priceController: priceController,
-                  price: price,
-                  isOfferProduct: isOfferProduct,
-                  offerPrice: offerPrice,
+                CustomControlProductCount(
+                  product: widget.product,
                 ),
                 const SizedBox(
                   height: 30,
@@ -86,7 +78,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                     ),
                     children: [
                       Text(
-                        'Apples are nutritious. Apples may be good for weight loss. apples may be good for your heart. As part of a healtful and varied diet.',
+                        widget.product.details,
                         style: Styles.styleGrey13,
                       ),
                     ],
@@ -104,7 +96,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                     ),
                     children: [
                       Text(
-                        'Calories: 94.6 , Water: 156 grams , Protein: 0.43 grams , Carbs: 25.1 grams , Sugar: 18.9 grams , Fiber: 4.37 grams , Fat: 0.3 grams',
+                        widget.product.benefits,
                         style: Styles.styleGrey13,
                       ),
                     ],
@@ -119,7 +111,7 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
                     trailing: RatingBar.builder(
                       ignoreGestures: true,
                       maxRating: 5,
-                      initialRating: 4,
+                      initialRating: widget.product.rate as double,
                       minRating: 1,
                       direction: Axis.horizontal,
                       allowHalfRating: true,
