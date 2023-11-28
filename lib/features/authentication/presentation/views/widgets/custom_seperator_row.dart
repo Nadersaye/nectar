@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../../core/utils/styles.dart';
 import 'Login widgets/custom_seperator_authentication.dart';
 
