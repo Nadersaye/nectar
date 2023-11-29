@@ -4,42 +4,9 @@ import 'package:nectar/core/utils/styles.dart';
 import '../../../../../../core/models/cart_item_model.dart';
 import 'favourite_list_view.dart';
 
-class FavouriteProductsViewBody extends StatefulWidget {
-  const FavouriteProductsViewBody({super.key});
-
-  @override
-  State<FavouriteProductsViewBody> createState() =>
-      _FavouriteProductsViewBodyState();
-}
-
-class _FavouriteProductsViewBodyState extends State<FavouriteProductsViewBody> {
-  List<CartItemModel> productItems = [
-    CartItemModel(
-        7.35, 7, 'assets/images/apple.png', 'apple', '2 kg ,price', true, 0, 0),
-    CartItemModel(2.35, 2, 'assets/images/apple2.png', 'apple', '.5 kg ,price',
-        true, 0, 0),
-    CartItemModel(3.35, 3, 'assets/images/apple3.png', 'apple', '1 kg ,price',
-        true, 0, 0),
-    CartItemModel(
-        2.35, 2, 'assets/images/apple.png', 'apple', '3 kg ,price', true, 0, 0),
-    CartItemModel(2.35, 2, 'assets/images/apple2.png', 'apple', '1 kg ,price',
-        true, 0, 0),
-    CartItemModel(12.75, 11, 'assets/images/apple3.png', 'apple', '4 kg ,price',
-        true, 0, 0),
-    CartItemModel(
-        2.35, 2, 'assets/images/apple.png', 'apple', '1 kg ,price', true, 0, 0),
-    CartItemModel(15.35, 13, 'assets/images/apple.png', 'apple', '5 kg ,price',
-        true, 0, 0),
-    CartItemModel(
-        2.35, 2, 'assets/images/apple.png', 'apple', '1 kg ,price', true, 0, 0),
-    CartItemModel(30.35, 25, 'assets/images/apple2.png', 'apple', '7 kg ,price',
-        true, 0, 0),
-  ];
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class FavouriteProductsViewBody extends StatelessWidget {
+  const FavouriteProductsViewBody({super.key, required this.cartItems});
+  final List<CartItemModel> cartItems;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -58,7 +25,7 @@ class _FavouriteProductsViewBodyState extends State<FavouriteProductsViewBody> {
         ),
         Expanded(
           child: FavouriteProductsListView(
-            productItems: productItems,
+            productItems: cartItems,
           ),
         ),
       ],
