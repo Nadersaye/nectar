@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/features/home/data/models/account_model.dart';
+import 'package:nectar/features/profile/data/models/account_tile_model.dart';
 
-import '../../../../../../core/utils/colors.dart';
+import '../../../../../core/utils/colors.dart';
 import 'listview_item.dart';
 
 class AccountListview extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../../../core/utils/colors.dart';
-import '../../../../data/models/account_model.dart';
+import '../../../../../core/utils/colors.dart';
+import '../../../data/models/account_tile_model.dart';
 import 'account_list_view.dart';
 import 'logout_button.dart';
 import 'user_details_listtile.dart';
