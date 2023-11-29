@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/utils/styles.dart';
-import '../../../../../../core/stripe payment/payment_manager.dart';
 import '../../../../../../core/models/cart_item_model.dart';
+import '../../../../../../core/stripe payment/payment_manager.dart';
 import '../../../../data/models/expansion_tile_model.dart';
 import 'animated_dialog.dart';
 import 'cart_action_button.dart';
@@ -11,14 +11,14 @@ import 'custom_cart_listview.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 class CartViewBody extends StatefulWidget {
-  const CartViewBody({super.key});
-
+  const CartViewBody({super.key, required this.cartItems});
+  final List<CartItemModel> cartItems;
   @override
   State<CartViewBody> createState() => _CartViewBodyState();
 }
 
 class _CartViewBodyState extends State<CartViewBody> {
-  List<CartItemModel> productItems = [
+  /*List<CartItemModel> productItems = [
     CartItemModel(
         7.35, 7, 'assets/images/apple.png', 'apple', '2 kg ,price', true, 0, 0),
     CartItemModel(2.35, 2, 'assets/images/apple2.png', 'apple', '.5 kg ,price',
@@ -39,7 +39,7 @@ class _CartViewBodyState extends State<CartViewBody> {
         2.35, 2, 'assets/images/apple.png', 'apple', '1 kg ,price', true, 0, 0),
     CartItemModel(30.35, 25, 'assets/images/apple2.png', 'apple', '7 kg ,price',
         true, 0, 0),
-  ];
+  ];*/
   List<ExpansionTileModel> expansionTileItems = [
     ExpansionTileModel('Delivery', 'Select Method'),
     ExpansionTileModel('Payment', ''),
@@ -69,9 +69,7 @@ class _CartViewBodyState extends State<CartViewBody> {
           color: AppColors.lightGray,
         ),
         Expanded(
-          child: CartListView(
-            productItems: productItems,
-          ),
+          child: CartListView(productItems: widget.cartItems),
         ),
         Padding(
           padding: const EdgeInsets.only(right: 25, left: 25, bottom: 25),
