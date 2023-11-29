@@ -4,16 +4,8 @@ class CartItemModel {
   late String image;
   late String title;
   late String subTitle;
-  late num countController;
-  late num totalPriceController;
-  late bool isOfferProduct;
-  CartItemModel(
-      this.price,
-      this.offerPrice,
-      this.image,
-      this.title,
-      this.subTitle,
-      this.isOfferProduct,
-      this.countController,
-      this.totalPriceController);
+  late num countNum;
+  late num totalPriceNum;
+  CartItemModel(this.price, this.offerPrice, this.image, this.title,
+      this.subTitle, this.countNum, this.totalPriceNum);
 }
