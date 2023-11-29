@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:nectar/core/stripe%20payment/stripe_keys.dart';
 import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:nectar/core/utils/constants.dart';
 import 'package:nectar/core/utils/service_locator.dart';
+import 'package:nectar/features/profile/data/models/user%20details%20model/user_details.dart';
 import 'core/function/config_loading.dart';
 import 'features/home/presentation/manager/manage favourite cubit/manage_favourite_cubit.dart';
 import 'features/home/presentation/manager/manage navigation cubit/manage_navigation_cubit.dart';
@@ -29,6 +32,9 @@ void main() async {
   Stripe.publishableKey = StripeKeys.publishablekey;
   Stripe.merchantIdentifier = 'string';
   await Stripe.instance.applySettings();
+  await Hive.initFlutter();
+  Hive.registerAdapter(UserDetailsModelAdapter());
+  await Hive.openBox<UserDetailsModel>(kUserBox);
   setupServiceLocator();
   configLoading();
   AwesomeNotifications().initialize(
