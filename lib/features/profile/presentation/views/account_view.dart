@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:nectar/features/home/presentation/views/widgets/account%20widgets/account_view_body.dart';
+import 'package:nectar/features/profile/presentation/views/account%20widgets/account_view_body.dart';
 
-import '../../../data/models/account_model.dart';
+import '../../data/models/account_tile_model.dart';
 
 class AccountView extends StatefulWidget {
   const AccountView({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../../core/utils/colors.dart';
-import '../../../../../../core/utils/styles.dart';
+import '../../../../../core/utils/colors.dart';
+import '../../../../../core/utils/styles.dart';
 import 'user_name.dart';
 
 class UserDetailsListTile extends StatelessWidget {
