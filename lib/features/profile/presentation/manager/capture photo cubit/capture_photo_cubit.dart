@@ -11,6 +11,7 @@ class CapturePhotoCubit extends Cubit<CapturePhotoState> {
   File? file;
   String? baseName;
   capturePhoto() async {
+    emit(CapturePhotoLoading());
     var responce = await imageRepo.capturePhoto();
     responce.fold((error) {
       emit(CapturePhotoFailure(errorMessage: error));
