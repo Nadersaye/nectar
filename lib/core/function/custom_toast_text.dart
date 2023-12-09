@@ -10,5 +10,5 @@ void customToastText(
         gravity: ToastGravity.CENTER,
         backgroundColor: chooseToastColor(state),
         fontSize: 16,
-        textColor: AppColors.oceanGreen,
+        textColor: AppColors.white,
         timeInSecForIosWeb: 3);
