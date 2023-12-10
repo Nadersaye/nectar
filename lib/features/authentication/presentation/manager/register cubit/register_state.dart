@@ -9,8 +9,8 @@ final class RegisterLoading extends RegisterState {}
 
 final class RegisterSuccess extends RegisterState {
   final String successMessage;
-
-  RegisterSuccess({required this.successMessage});
+  final User user;
+  RegisterSuccess({required this.user, required this.successMessage});
 }
 
 final class RegisterFailure extends RegisterState {
