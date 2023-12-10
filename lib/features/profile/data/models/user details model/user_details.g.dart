@@ -18,11 +18,11 @@ class UserDetailsModelAdapter extends TypeAdapter<UserDetailsModel> {
     };
     return UserDetailsModel(
       id: fields[0] as String?,
-      name: fields[1] as String,
-      email: fields[2] as String,
+      name: fields[1] as String?,
+      email: fields[2] as String?,
       phoneNumber: fields[3] as String?,
       photo: fields[4] as String?,
-      customerId: fields[5] as String,
+      customerId: fields[5] as String?,
       token: fields[6] as String?,
     );
   }
