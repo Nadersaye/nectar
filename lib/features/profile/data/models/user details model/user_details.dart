@@ -7,10 +7,10 @@ class UserDetailsModel extends HiveObject {
   String? id;
 
   @HiveField(1)
-  String name;
+  String? name;
 
   @HiveField(2)
-  String email;
+  String? email;
 
   @HiveField(3)
   String? phoneNumber;
@@ -19,17 +19,17 @@ class UserDetailsModel extends HiveObject {
   String? photo;
 
   @HiveField(5)
-  String customerId;
+  String? customerId;
 
   @HiveField(6)
   String? token;
 
   UserDetailsModel(
       {this.id,
-      required this.name,
-      required this.email,
+      this.name,
+      this.email,
       this.phoneNumber,
       this.photo,
-      required this.customerId,
+      this.customerId,
       this.token});
 }
