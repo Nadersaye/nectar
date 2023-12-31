@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:nectar/core/function/custom_toast_text.dart';
 import 'package:nectar/core/models/toast_states.dart';
 import 'package:nectar/core/utils/styles.dart';
-import '../../../../../../core/widgets/custom_button.dart';
 import '../../../manager/phone auth cubit/phone_auth_cubit.dart';
 import 'custom_check_recieve_code.dart';
 import 'custom_otp_fields_row.dart';

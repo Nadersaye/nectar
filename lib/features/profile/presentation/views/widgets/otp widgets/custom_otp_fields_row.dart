@@ -16,11 +16,6 @@ class _CustomOtpFieldsRowState extends State<CustomOtpFieldsRow> {
   TextEditingController otp4Controller = TextEditingController();
   TextEditingController otp5Controller = TextEditingController();
   TextEditingController otp6Controller = TextEditingController();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
