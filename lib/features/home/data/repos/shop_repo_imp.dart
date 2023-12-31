@@ -49,4 +49,42 @@ class ShopRepoImp implements ShopRepo {
       return left(e.toString());
     }
   }
+
+  @override
+  Future<Either<String, List<ProductItemModel>>> fetchFavoriteProducts(
+      List<String> favoriteIds) async {
+    try {
+      var response = await _fb
+          .collection(productCollection)
+          .where(FieldPath.documentId, whereIn: favoriteIds)
+          .get();
+      List<ProductItemModel> products = response.docs
+          .map((element) => ProductItemModel.fromSnapShot(element))
+          .toList();
+      if (products.isEmpty) {
+        debugPrint(
+            '/////////////////////////////products is empty //////////////////////////');
+      }
+      return right(products);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
+
+  @override
+  Future<Either<String, List<ProductItemModel>>> fetchGroceries() async {
+    try {
+      var response = await _fb.collection(productCollection).get();
+      List<ProductItemModel> products = response.docs
+          .map((element) => ProductItemModel.fromSnapShot(element))
+          .toList();
+      if (products == []) {
+        debugPrint(
+            '/////////////////////////////products is emprty //////////////////////////');
+      }
+      return right(products);
+    } catch (e) {
+      return left(e.toString());
+    }
+  }
 }
