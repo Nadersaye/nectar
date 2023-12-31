@@ -67,7 +67,9 @@ class _AccountViewState extends State<AccountView> {
           return Text(
               'Failed to load best-selling products: ${state.errorMessage}');
         } else {
-          return const Text('something ');
+          return const SizedBox(
+            height: 20,
+          );
         }
       },
     );

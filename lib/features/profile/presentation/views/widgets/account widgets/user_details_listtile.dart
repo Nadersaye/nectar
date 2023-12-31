@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/features/profile/data/models/user%20details%20model/user_details.dart';
-import 'package:nectar/features/profile/presentation/views/widgets/cached_profile_network_image.dart';
-
+import 'package:nectar/core/function/cache_network_image.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
+import '../../../../data/models/user details model/user_details.dart';
 import 'user_name.dart';
 
 class UserDetailsListTile extends StatelessWidget {
@@ -20,9 +19,8 @@ class UserDetailsListTile extends StatelessWidget {
         contentPadding: EdgeInsets.zero,
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(27),
-          child: cachedProfilNetworkImage(
-              imageUrl: user.photo ??
-                  'https://modo3.com/thumbs/fit630x300/83832/1480963581/%D8%A8%D8%AD%D8%AB_%D8%B9%D9%86_%D8%B4%D8%B1%D9%83%D8%A9_%D8%A3%D8%A8%D9%84.jpg'),
+          child: cachedMyNetworkImage(
+              imageUrl: user.photo!, height: 64, width: 64),
         ),
         title: CustomUserName(
           user: user,

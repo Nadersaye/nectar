@@ -3,14 +3,14 @@ import '../../../../data/models/user details model/user_details.dart';
 import 'edit_account_input_details.dart';
 
 class EditAccountForm extends StatefulWidget {
-  const EditAccountForm(
-      {super.key,
-      required this.user,
-      required this.nameController,
-      required this.phoneController});
+  const EditAccountForm({
+    super.key,
+    required this.user,
+    required this.nameController,
+  });
   final UserDetailsModel user;
   final TextEditingController nameController;
-  final TextEditingController phoneController;
+
   @override
   State<EditAccountForm> createState() => _EditAccountFormState();
 }
@@ -28,9 +28,9 @@ class _EditAccountFormState extends State<EditAccountForm> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           EditAccountInputDetails(
-              autovalidateMode: autovalidateMode,
-              nameController: widget.nameController,
-              phoneController: widget.phoneController),
+            autovalidateMode: autovalidateMode,
+            nameController: widget.nameController,
+          ),
         ],
       ),
     );

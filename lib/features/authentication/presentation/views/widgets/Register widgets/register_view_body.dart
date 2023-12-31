@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
 import '../another_option_authentication_text.dart';
@@ -12,6 +13,7 @@ class RegisterViewBody extends StatelessWidget {
     return CustomScrollView(
       physics: const BouncingScrollPhysics(),
       slivers: [
+        const SliverGap(30),
         SliverFillRemaining(
           hasScrollBody: false,
           child: Column(
