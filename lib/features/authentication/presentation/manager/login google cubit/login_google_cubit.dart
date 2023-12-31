@@ -19,6 +19,9 @@ class LoginGoogleCubit extends Cubit<LoginGoogleState> {
       }
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      debugPrint(
+          '/////////////////////////////id//////////////////////////////////');
+      debugPrint(googleUser?.id ?? 'id not found');
       // Obtain the auth details from the request
       if (googleUser != null) {
         try {
@@ -30,12 +33,11 @@ class LoginGoogleCubit extends Cubit<LoginGoogleState> {
             accessToken: googleAuth.accessToken,
             idToken: googleAuth.idToken,
           );
-          emit(LoginGoogleSuccess());
           // Once signed in, return the UserCredential
           UserCredential userCredential =
               await FirebaseAuth.instance.signInWithCredential(credential);
           User user = userCredential.user!;
-          debugPrint(user.email);
+          emit(LoginGoogleSuccess(user: user));
         } catch (e) {
           emit(LoginGoogleFailure(errorMessage: e.toString()));
         }
