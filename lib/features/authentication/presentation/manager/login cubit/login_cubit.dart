@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nectar/core/utils/constants.dart';
 
 part 'login_state.dart';
 
@@ -14,8 +15,11 @@ class LoginCubit extends Cubit<LoginState> {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email.text, password: password.text);
       if (credential.user!.emailVerified) {
-        emit(LoginSuccess());
-        // Navigator.of(context).pushReplacementNamed("homepage");
+        debugPrint(
+            '/////////////////////////////id//////////////////////////////////');
+        debugPrint(credential.user?.uid ?? '');
+        myuserId = credential.user?.uid ?? '';
+        emit(LoginSuccess(user: credential.user!));
       } else {
         emit(LoginFailure(
             errorMessage: 'not verified , you shoud verified it first'));
