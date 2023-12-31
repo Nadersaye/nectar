@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/widgets/custom_button.dart';
-import 'package:nectar/features/profile/presentation/manager/phone%20auth%20cubit/phone_auth_cubit.dart';
 import '../../../../data/models/user details model/user_details.dart';
 import '../../../manager/get user details cubit/get_user_details_cubit.dart';
 import '../../../manager/uploud image cubit/uploud_image_cubit.dart';
-import '../cached_profile_network_image.dart';
+import 'custom_add_image.dart';
 import 'custom_alert_dialog.dart';
+import 'edit_account_appbar.dart';
 import 'edit_account_form.dart';
 
 class EditAccountViewBody extends StatefulWidget {
@@ -23,6 +24,8 @@ class EditAccountViewBody extends StatefulWidget {
 }
 
 class _EditAccountViewBodyState extends State<EditAccountViewBody> {
+  late String newName;
+  late String newPhotoUrl;
   void _showAlertDialog(BuildContext context) {
     showDialog(
       barrierColor: Colors.transparent,
@@ -34,30 +37,33 @@ class _EditAccountViewBodyState extends State<EditAccountViewBody> {
   }
 
   void _updateProfile(BuildContext context) {
-    /*widget.user.photo = BlocProvider.of<UploudImageCubit>(context).myUrl;
+    if (BlocProvider.of<UploudImageCubit>(context).myUrl != null) {
+      widget.user.photo = BlocProvider.of<UploudImageCubit>(context).myUrl;
+      FirebaseAuth.instance.currentUser!
+          .updatePhotoURL(BlocProvider.of<UploudImageCubit>(context).myUrl!);
+    }
+    widget.user.name = nameController.text;
+    FirebaseAuth.instance.currentUser!.updateDisplayName(nameController.text);
     widget.user.save();
     log("${BlocProvider.of<UploudImageCubit>(context).myUrl}");
     BlocProvider.of<GetUserDetailsCubit>(context)
         .getUserDetails(widget.user.id);
-    GoRouter.of(context).pop();*/
-    BlocProvider.of<PhoneAuthCubit>(context).phoneNumber = phoneController.text;
-    GoRouter.of(context).push(AppRoutes.otp);
+    GoRouter.of(context).pop();
   }
 
   Timer? _timer;
   late TextEditingController nameController;
-  late TextEditingController phoneController;
   @override
   void initState() {
     nameController = TextEditingController(text: widget.user.name);
-    phoneController = TextEditingController(text: widget.user.phoneNumber);
+    newName = nameController.text;
+    newPhotoUrl = widget.user.photo!;
     super.initState();
   }
 
   @override
   void dispose() {
     nameController.dispose();
-    phoneController.dispose();
     super.dispose();
   }
 
@@ -68,6 +74,8 @@ class _EditAccountViewBodyState extends State<EditAccountViewBody> {
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
+            const EditAccountAppbar(),
+            const Gap(40),
             BlocConsumer<UploudImageCubit, UploudImageState>(
               listener: (BuildContext context, UploudImageState state) async {
                 if (state is UploudImageLoading) {
@@ -75,46 +83,67 @@ class _EditAccountViewBodyState extends State<EditAccountViewBody> {
                     status: 'Processing...',
                     maskType: EasyLoadingMaskType.black,
                   );
+                } else if (state is UploudImageSuccess) {
+                  log(state.myUrl);
+                  _timer?.cancel();
+                  await EasyLoading.dismiss();
                 } else {
                   _timer?.cancel();
                   await EasyLoading.dismiss();
                 }
               },
               builder: (context, state) {
-                if (widget.user.photo != null) {
-                  if (state is UploudImageSuccess) {
-                    return cachedProfilNetworkImage(imageUrl: state.myUrl);
-                  } else {
-                    return cachedProfilNetworkImage(
-                        imageUrl: widget.user.photo!);
-                  }
+                if (state is UploudImageSuccess) {
+                  return CustomAddImage(
+                    imageUrl: state.myUrl,
+                    onPressed: () => _showAlertDialog(context),
+                  );
                 } else {
-                  return state is UploudImageSuccess
-                      ? cachedProfilNetworkImage(imageUrl: state.myUrl)
-                      : const SizedBox(
-                          height: 20,
-                        );
+                  return CustomAddImage(
+                    imageUrl: widget.user.photo!,
+                    onPressed: () => _showAlertDialog(context),
+                  );
                 }
               },
             ),
-            const SizedBox(
-              height: 5,
-            ),
-            GestureDetector(
-                onTap: () => _showAlertDialog(context),
-                child: const Text('change')),
-            const SizedBox(
-              height: 10,
+            const Gap(
+              20,
             ),
             EditAccountForm(
               user: widget.user,
               nameController: nameController,
-              phoneController: phoneController,
             ),
-            CustomActionButton(
-              buttonText: 'Update',
-              onTap: () => _updateProfile(context),
+            const Gap(60),
+            BlocBuilder<UploudImageCubit, UploudImageState>(
+              builder: (context, state) {
+                return AnimatedOpacity(
+                  opacity: (newName != nameController.text ||
+                          (newPhotoUrl !=
+                                  BlocProvider.of<UploudImageCubit>(context)
+                                      .myUrl &&
+                              BlocProvider.of<UploudImageCubit>(context)
+                                      .myUrl !=
+                                  null))
+                      ? 1
+                      : 0.2,
+                  duration: const Duration(milliseconds: 300),
+                  child: CustomActionButton(
+                      buttonText: 'Update',
+                      onTap: () {
+                        if (newName != nameController.text ||
+                            (newPhotoUrl !=
+                                    BlocProvider.of<UploudImageCubit>(context)
+                                        .myUrl &&
+                                BlocProvider.of<UploudImageCubit>(context)
+                                        .myUrl !=
+                                    null)) {
+                          _updateProfile(context);
+                        }
+                      }),
+                );
+              },
             ),
+            const Gap(20)
           ],
         ),
       ),
