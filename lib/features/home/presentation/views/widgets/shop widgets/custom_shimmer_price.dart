@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'shimmer_skelton.dart';
+import '../../../../../../core/widgets/shimmer_skelton.dart';
 
 class CustomShimmerPrice extends StatelessWidget {
   const CustomShimmerPrice({

@@ -10,7 +10,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //SolidController controller = SolidController();
     return BlocBuilder<ManageNavigationCubit, ManageNavigationState>(
       builder: (context, state) {
         var navCubit = ManageNavigationCubit.get(context);

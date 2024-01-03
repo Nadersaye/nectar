@@ -17,13 +17,6 @@ class CustomShopCard extends StatelessWidget {
           color: AppColors.white,
           border: Border.all(color: AppColors.lightGray),
           borderRadius: BorderRadius.circular(18.r),
-          /*boxShadow: const [
-            BoxShadow(
-              color: AppColors.black,
-              offset: Offset(0, 6),
-              blurRadius: 6,
-            )
-          ],*/
         ),
         child: CustomShopCardBody(product: product),
       ),

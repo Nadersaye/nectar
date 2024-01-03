@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../../core/utils/colors.dart';
 import 'custom_shimmer_add.dart';
-import 'shimmer_skelton.dart';
+import '../../../../../../core/widgets/shimmer_skelton.dart';
 
 class ShimmerShopListItem extends StatelessWidget {
   const ShimmerShopListItem({super.key});
