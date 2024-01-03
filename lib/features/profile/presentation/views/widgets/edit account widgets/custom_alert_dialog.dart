@@ -56,7 +56,7 @@ customAlertDialog(BuildContext context) {
           ),
           BlocListener<CapturePhotoCubit, CapturePhotoState>(
             listener: (context, state) async {
-              var get = BlocProvider.of<PickImageCubit>(context);
+              var get = BlocProvider.of<CapturePhotoCubit>(context);
               if (state is CapturePhotoSuccess) {
                 await BlocProvider.of<UploudImageCubit>(context)
                     .uploadAndDowload(file: get.file!, baseName: get.baseName!);
@@ -70,7 +70,7 @@ customAlertDialog(BuildContext context) {
               onTap: () async {
                 await BlocProvider.of<CapturePhotoCubit>(context)
                     .capturePhoto();
-                log('you are right ');
+                log('you are right ,capture  ');
                 GoRouter.of(context).pop();
               },
               child: Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/function/cache_network_image.dart';
 
 import '../../../../../core/models/cart_item_model.dart';
 import '../../../../../core/utils/colors.dart';
@@ -15,18 +16,24 @@ class ProductsGridViewItemBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            productItem.image,
+          cachedMyNetworkImage(
+              imageUrl: productItem.imageUrl,
+              height: 80,
+              width: MediaQuery.of(context).size.width - 30,
+              fit: BoxFit.fitHeight),
+          /*Image.asset(
+            productItem.imageUrl,
             height: 80,
             width: MediaQuery.of(context).size.width - 30,
             fit: BoxFit.fill,
-          ),
+          ),*/
           Text(
             productItem.title,
             style: Styles.styleMagnoliaWhite16.copyWith(
                 color: AppColors.blackRussian, fontWeight: FontWeight.w700),
           ),
-          Text(productItem.subTitle, style: Styles.styleGrey14),
+          Text('${productItem.size} ${productItem.type}, price',
+              style: Styles.styleGrey14),
           CustomCartRow(productItem: productItem)
         ],
       ),
