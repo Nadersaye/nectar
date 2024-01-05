@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:nectar/core/models/product_item_model.dart';
 import 'custom_product_details_data.dart';
@@ -14,16 +13,11 @@ class ProductDetailsBody extends StatefulWidget {
 
 class _ProductDetailsBodyState extends State<ProductDetailsBody> {
   final PageController pageController = PageController(initialPage: 0);
-  late CarouselController carouselController;
   bool changedIcon = false;
-  List<String> items = [
-    'assets/images/apple.png',
-    'assets/images/apple2.png',
-    'assets/images/apple3.png'
-  ];
+  late List<String> items;
+
   @override
   void initState() {
-    carouselController = CarouselController();
     super.initState();
   }
 
@@ -34,9 +28,11 @@ class _ProductDetailsBodyState extends State<ProductDetailsBody> {
       children: [
         const ProductDetailsAppbar(),
         TogglingProductImages(
-          items: items,
+          product: widget.product,
         ),
-        CustomProductDetailsData(widget: widget),
+        CustomProductDetailsData(
+          product: widget.product,
+        ),
       ],
     );
   }

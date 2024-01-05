@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nectar/core/utils/colors.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'custom_appbar_icon.dart';
 
@@ -34,6 +35,10 @@ class ProductDetailsAppbar extends StatelessWidget {
                   FontAwesomeIcons.arrowUpFromBracket,
                   color: AppColors.blackRussian,
                 ),
+                onPressed: () {
+                  Share.share('check out my website https://example.com',
+                      subject: 'Look what I made!');
+                },
               ),
             ],
           )),
