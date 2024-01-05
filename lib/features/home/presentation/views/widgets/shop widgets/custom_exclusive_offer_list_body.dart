@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../../../core/utils/app_routes.dart';
 import '../../../manager/get exclusive offer cubit/get_exclusive_offer_cubit.dart';
 import 'custom_shop_card.dart';
 
@@ -33,10 +35,16 @@ class CustomExclusiveOfferContentListBody extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         final product = state.products[index];
-        return Padding(
-          padding: const EdgeInsetsDirectional.only(end: 15),
-          child: CustomShopCard(
-            product: product,
+        return GestureDetector(
+          onTap: () {
+            GoRouter.of(context)
+                .push(AppRoutes.productDetailsView, extra: product);
+          },
+          child: Padding(
+            padding: const EdgeInsetsDirectional.only(end: 15),
+            child: CustomShopCard(
+              product: product,
+            ),
           ),
         );
       },
