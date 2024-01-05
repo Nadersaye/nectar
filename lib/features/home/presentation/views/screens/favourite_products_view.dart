@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/features/home/presentation/views/widgets/favourite%20products%20widgets/favourite_products_view_body.dart';
+import '../../../../../core/models/cart_item_model.dart';
+import '../widgets/favourite products widgets/favourite_products_view_body.dart';
 
 class FavouriteProductsView extends StatelessWidget {
-  const FavouriteProductsView({super.key});
-
+  const FavouriteProductsView({super.key, required this.cartItems});
+  final List<CartItemModel> cartItems;
   @override
   Widget build(BuildContext context) {
     return const FavouriteProductsViewBody();
