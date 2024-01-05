@@ -23,7 +23,7 @@ class CustomPercentOpacity extends StatelessWidget {
             color: AppColors.lightRed,
             borderRadius: BorderRadius.circular(17.r)),
         child: Text(
-          '${product.percent} %',
+          '${product.percent!.round()} %',
           style: Styles.styleGrey13.copyWith(color: AppColors.mediumRed),
         ),
       ),
