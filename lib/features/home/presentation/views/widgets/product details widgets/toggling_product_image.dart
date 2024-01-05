@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nectar/core/widgets/custom_image_slider.dart';
+import 'package:nectar/core/function/cache_network_image.dart';
+import 'package:nectar/core/models/product_item_model.dart';
 import '../../../../../../core/utils/colors.dart';
-import '../../../../../../core/widgets/custom_dot_indicator.dart';
 
-class TogglingProductImages extends StatefulWidget {
-  const TogglingProductImages({super.key, required this.items});
-  final List<String> items;
+class TogglingProductImages extends StatelessWidget {
+  const TogglingProductImages({super.key, required this.product});
+  final ProductItemModel product;
 
-  @override
-  State<TogglingProductImages> createState() => _TogglingProductImagesState();
-}
-
-class _TogglingProductImagesState extends State<TogglingProductImages> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,26 +17,11 @@ class _TogglingProductImagesState extends State<TogglingProductImages> {
         borderRadius: BorderRadiusDirectional.only(
             bottomEnd: Radius.circular(25), bottomStart: Radius.circular(25)),
       ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: CustomImageSlider(
-              items: widget.items,
-              aspectRactio: 3.3 / 2,
-              height: 200,
-              autoNavigate: false,
-              fitImage: BoxFit.contain,
-            ),
-          ),
-          Positioned(
-              bottom: 30,
-              right: MediaQuery.of(context).size.width / 2 - 30,
-              child: CustomDotIndicator(
-                items: widget.items,
-              ))
-        ],
-      ),
+      child: cachedMyNetworkImage(
+          imageUrl: product.imageUrl!,
+          height: 200,
+          width: MediaQuery.sizeOf(context).width,
+          fit: BoxFit.contain),
     );
   }
 }
