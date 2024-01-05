@@ -1,12 +1,18 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import '../../../../../../core/models/cart_item_model.dart';
-import '../../../manager/manage favourite cubit/manage_favourite_cubit.dart';
+import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../../../core/models/product_item_model.dart';
+import '../../../manager/delete favourite cubit/delete_favourite_cubit.dart';
+import '../../../manager/get favorites cubit/get_favorites_cubit.dart';
+import '../../../manager/get favourite products/get_favourite_products_cubit.dart';
 import 'favourite_listview_item.dart';
+import 'favourite_shimmer_list_view.dart';
 
 class FavouriteProductsListView extends StatefulWidget {
-  const FavouriteProductsListView({super.key, required this.productItems});
-  final List<CartItemModel> productItems;
+  const FavouriteProductsListView({super.key});
   @override
   State<FavouriteProductsListView> createState() =>
       _FavouriteProductsListViewState();
@@ -15,42 +21,98 @@ class FavouriteProductsListView extends StatefulWidget {
 class _FavouriteProductsListViewState extends State<FavouriteProductsListView> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   final ScrollController _scrollController = ScrollController();
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedList(
-        controller: _scrollController,
-        physics: const BouncingScrollPhysics(),
-        initialItemCount: widget.productItems.length,
-        key: _listKey,
-        itemBuilder: ((context, index, animation) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Slidable(
-                startActionPane:
-                    ActionPane(motion: const BehindMotion(), children: [
-                  SlidableAction(
-                    onPressed: (context) {},
-                    icon: Icons.delete,
-                    backgroundColor: Colors.red,
-                    label: "Delete",
-                  ),
-                ]),
-                child: customItem(animation, index)),
-          );
-        }));
+  List<ProductItemModel> products = [];
+  String userId = '';
+  getData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String id = sharedPreferences.getString("id")!;
+    userId = id;
+    // ignore: use_build_context_synchronously
+    BlocProvider.of<GetFavoritesCubit>(context).fetchFavoriteProducts(user: id);
   }
 
-  Widget customItem(Animation<double> animation, int index) {
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<GetFavoritesCubit, GetFavoritesState>(
+      listener: (context, favouriteState) {
+        if (favouriteState is GetFavoritesSuccess) {
+          BlocProvider.of<GetFavouriteProductsCubit>(context)
+              .getFavoriteProducts(favouriteState.productsIdList);
+        } else if (favouriteState is GetFavoritesFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(favouriteState.errorMessage)));
+        }
+      },
+      builder: (context, favouriteState) {
+        return BlocConsumer<GetFavouriteProductsCubit,
+            GetFavouriteProductsState>(
+          listener: (BuildContext context, GetFavouriteProductsState state) {
+            if (state is GetFavouriteProductsSuccess) {
+              products = state.products;
+            } else if (state is GetFavouriteProductsFailure) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              log(state.errorMessage);
+            }
+          },
+          builder: (context, state) {
+            if (state is GetFavouriteProductsLoading ||
+                favouriteState is GetFavoritesLoading) {
+              return const FavouriteShimmerListview();
+            } else if (state is GetFavouriteProductsSuccess &&
+                products.isNotEmpty) {
+              return AnimatedList(
+                  controller: _scrollController,
+                  physics: const BouncingScrollPhysics(),
+                  initialItemCount: products.length,
+                  key: _listKey,
+                  itemBuilder: ((context, index, animation) {
+                    return Slidable(
+                        startActionPane:
+                            ActionPane(motion: const BehindMotion(), children: [
+                          SlidableAction(
+                            onPressed: (context) async {
+                              deleteItem(index: index);
+                              await BlocProvider.of<DeleteFavouriteCubit>(
+                                      context)
+                                  .deleteFavourite(
+                                      userId: userId,
+                                      productId: products[index].id!);
+                              log('success delete');
+                            },
+                            icon: Icons.delete,
+                            backgroundColor: Colors.red,
+                            label: "Delete",
+                          ),
+                        ]),
+                        child: customFavoriteItem(animation, index));
+                  }));
+            } else if (favouriteState is GetFavoritesEmpty) {
+              return Lottie.asset('assets/animations/empty1.json');
+            } else {
+              return const Center(child: Text(''));
+            }
+          },
+        );
+      },
+    );
+  }
+
+  Widget customFavoriteItem(Animation<double> animation, int index) {
     return Builder(
       builder: (BuildContext context) => SlideTransition(
           position: animation.drive(Tween<Offset>(
               begin: const Offset(1, 0), end: const Offset(0, 0))),
           child: FavouriteProductsListViewItem(
             deleteItem: deleteItem,
-            productItem: widget.productItems[index],
+            product: products[index],
             onPressed: () {
-              ManageFavouriteCubit.get(context).changeFavourite();
-              ManageFavouriteCubit.get(context).manageIconAndColor();
               final slidable = Slidable.of(context);
               final isClosed =
                   slidable?.actionPaneType.value == ActionPaneType.none;
@@ -64,93 +126,13 @@ class _FavouriteProductsListViewState extends State<FavouriteProductsListView> {
     );
   }
 
-  /*void addItem() {
-    dynamic index = widget.productItems.length;
-    items.add('item ${index + 1}');
-    _listKey.currentState!.insertItem(index);
-    Future.delayed(const Duration(milliseconds: 300), () {
-      _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 100),
-          curve: Curves.bounceInOut);
-    });
-  }*/
-
-  void deleteItem(int index) {
-    var itemValue = widget.productItems.removeAt(index);
-    _listKey.currentState!.removeItem(index, (context, animation) {
+  void deleteItem({required int index}) {
+    //var itemValue = products.removeAt(index);
+    _listKey.currentState!.removeItem(index, (_, animation) {
       return SizeTransition(
           sizeFactor: animation,
           child: FavouriteProductsListViewItem(
-              deleteItem: deleteItem, productItem: widget.productItems[index]));
+              deleteItem: deleteItem, product: products[index]));
     });
   }
 }
-
-/*import 'package:flutter/material.dart';
-import '../../../../../../core/widgets/custom_divider.dart';
-import '../../../../../../core/models/cart_item_model.dart';
-import 'favourite_listview_item.dart';
-
-class FavouriteProductsListView extends StatefulWidget {
-  const FavouriteProductsListView({
-    super.key,
-    required this.productItems,
-  });
-  final List<CartItemModel> productItems;
-  @override
-  State<FavouriteProductsListView> createState() =>
-      _FavouriteProductsListViewState();
-}
-
-class _FavouriteProductsListViewState extends State<FavouriteProductsListView> {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: ((context, index) {
-        return FavouriteProductsListViewItem(
-            deleteItem: deleteItem, productItem: widget.productItems[index]);
-      }),
-      itemCount: widget.productItems.length,
-      separatorBuilder: (BuildContext context, int index) {
-        return const CustomDivider();
-      },
-    );
-  }
-
-  void deleteItem(int index) {
-    setState(() {
-      widget.productItems.removeAt(index);
-    });
-  }
-}*/
-
-/*class MainCartListViewItem extends StatelessWidget {
-  const MainCartListViewItem({
-    super.key,
-    required this.deleteItem,
-    required this.productItem,
-  });
-
-  final Function deleteItem;
-  final CartItemModel productItem;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CartListViewItem(
-          deleteItem: deleteItem,
-          productItem: productItem,
-        ),
-        const Divider(
-          height: 1,
-          indent: 25,
-          endIndent: 25,
-          color: AppColors.lightGray,
-        )
-      ],
-    );
-  }
-}*/
