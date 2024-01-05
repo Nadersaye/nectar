@@ -1,35 +1,45 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:nectar/core/stripe%20payment/stripe_keys.dart';
+import 'package:nectar/core/payment/stripe_keys.dart';
 import 'package:nectar/core/utils/app_routes.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:nectar/core/utils/constants.dart';
 import 'package:nectar/core/utils/service_locator.dart';
-import 'package:nectar/features/profile/data/models/user%20details%20model/user_details.dart';
+import 'package:nectar/features/checkout/data/repos/cart%20repo/cart_repo_imp.dart';
+import 'package:nectar/features/home/presentation/manager/change%20favourite%20cubit/change_favourite_cubit.dart';
+import 'package:nectar/features/profile/presentation/manager/phone%20auth%20cubit/phone_auth_cubit.dart';
+import 'package:nectar/features/profile/presentation/manager/uploud%20image%20cubit/uploud_image_cubit.dart';
+import 'package:nectar/firebase_options.dart';
 import 'core/function/config_loading.dart';
+import 'features/authentication/presentation/manager/sign out cubit/sign_out_cubit.dart';
+import 'features/checkout/presentation/manager/delete all carts cubit/delete_all_carts_cubit.dart';
+import 'features/checkout/presentation/manager/get carts cubit/get_carts_cubit.dart';
+import 'features/home/data/repos/shop_repo_imp.dart';
+import 'features/home/presentation/manager/count total order cubit/count_total_order_cubit.dart';
+import 'features/home/presentation/manager/get best selling/get_best_selling_cubit.dart';
+import 'features/home/presentation/manager/get exclusive offer cubit/get_exclusive_offer_cubit.dart';
 import 'features/home/presentation/manager/manage favourite cubit/manage_favourite_cubit.dart';
 import 'features/home/presentation/manager/manage navigation cubit/manage_navigation_cubit.dart';
 import 'features/home/presentation/manager/toggle images cubit/toggle_images_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'features/profile/data/models/user details model/user_details.dart';
+import 'features/profile/data/repos/account repo/account_repo_imp.dart';
+import 'features/profile/data/repos/image repo/image_repo_imp.dart';
+import 'features/profile/presentation/manager/capture photo cubit/capture_photo_cubit.dart';
+import 'features/profile/presentation/manager/get user details cubit/get_user_details_cubit.dart';
+import 'features/profile/presentation/manager/pick image cubit/pick_image_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Platform.isAndroid
-      ? await Firebase.initializeApp(
-          options: const FirebaseOptions(
-              apiKey: "AIzaSyBNoqNV2Bp3ZmrEz_N81xq4jpQP7POH5hg",
-              appId: "1:239642353975:android:0db659028a2eeb9419bab2",
-              messagingSenderId: "239642353975",
-              projectId: "nectar-1ff4d",
-              storageBucket: "nectar-1ff4d.appspot.com"))
-      : await Firebase.initializeApp();
-  Stripe.publishableKey = StripeKeys.publishablekey;
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  Stripe.publishableKey = PaymentKeys.publishablekey;
   Stripe.merchantIdentifier = 'string';
   await Stripe.instance.applySettings();
   await Hive.initFlutter();
@@ -41,7 +51,7 @@ void main() async {
       null,
       [
         NotificationChannel(
-            channelKey: 'basic_channel',
+            channelKey: 'nectar',
             channelName: 'nectar store',
             channelDescription: 'store app for groceries products')
       ],
@@ -76,7 +86,10 @@ class _NectarAppState extends State<NectarApp> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => ManageNavigationCubit(),
+            create: (context) => ManageFavouriteCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ChangeFavouriteCubit(),
           ),
           BlocProvider(
             create: (context) => ToggleImagesCubit(),
@@ -84,6 +97,29 @@ class _NectarAppState extends State<NectarApp> {
           BlocProvider(
             create: (context) => ManageFavouriteCubit(),
           ),
+          BlocProvider(
+            create: (context) => CapturePhotoCubit(ImageRepoImp()),
+          ),
+          BlocProvider(
+            create: (context) => ManageNavigationCubit(),
+          ),
+          BlocProvider(create: (context) => SignOutCubit()),
+          BlocProvider(
+              create: (context) =>
+                  GetBestSellingCubit(getIt.get<ShopRepoImp>())),
+          BlocProvider(
+              create: (context) =>
+                  GetExclusiveOfferCubit(getIt.get<ShopRepoImp>())),
+          BlocProvider(
+              create: (context) => GetUserDetailsCubit(AccountRepoImp())),
+          BlocProvider(
+            create: (context) => PickImageCubit(ImageRepoImp()),
+          ),
+          BlocProvider(create: (context) => UploudImageCubit(ImageRepoImp())),
+          BlocProvider(create: (context) => PhoneAuthCubit()),
+          BlocProvider(create: (context) => CountTotalOrderCubit()),
+          BlocProvider(create: (context) => GetCartsCubit(CartRepoImp())),
+          BlocProvider(create: (context) => DeleteAllCartsCubit(CartRepoImp())),
         ],
         child: MaterialApp.router(
             routerConfig: AppRoutes.router,
@@ -95,20 +131,3 @@ class _NectarAppState extends State<NectarApp> {
     );
   }
 }
-//Grap & Go
-//Handcrafted by Gournet #
-//Meat,Poultry$ Seafood 
-//Bakery
-//Dairy &Eggs
-//Deli
-//Fruits $ vegetables
-//Platters&boxes #
-//Health & Beauty
-//Baby
-//Food Cupboard
-//Desserts & Snacks
-//Household
-//Freezer
-//Pet
-//Kitchen, Dinning&Home
-//Cooking Oil& Ghee
