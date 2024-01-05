@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nectar/core/models/product_item_model.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
-import 'product_details_body.dart';
 
 class CustomProductDetailTile extends StatelessWidget {
   const CustomProductDetailTile({
     super.key,
-    required this.widget,
+    required this.product,
   });
 
-  final ProductDetailsBody widget;
+  final ProductItemModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class CustomProductDetailTile extends StatelessWidget {
         ),
         children: [
           Text(
-            widget.product.details,
+            product.details ?? 'unknown',
             style: Styles.styleGrey13,
           ),
         ],

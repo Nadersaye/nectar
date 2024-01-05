@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
+import '../../../../../../core/models/product_item_model.dart';
 import '../../../../../../core/utils/colors.dart';
 import '../../../../../../core/utils/styles.dart';
-import 'product_details_body.dart';
 
 class CustomReviewTile extends StatelessWidget {
   const CustomReviewTile({
     super.key,
-    required this.widget,
+    required this.product,
   });
 
-  final ProductDetailsBody widget;
+  final ProductItemModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class CustomReviewTile extends StatelessWidget {
         trailing: RatingBar.builder(
           ignoreGestures: true,
           maxRating: 5,
-          initialRating: widget.product.rate as double,
+          initialRating: product.rate as double,
           minRating: 1,
           direction: Axis.horizontal,
           allowHalfRating: true,
@@ -34,9 +33,7 @@ class CustomReviewTile extends StatelessWidget {
             Icons.star,
             color: AppColors.orange,
           ),
-          onRatingUpdate: (rating) {
-            print(rating);
-          },
+          onRatingUpdate: (rating) {},
         ),
         title: Text(
           'Review',
