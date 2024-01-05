@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:nectar/core/utils/colors.dart';
 import 'package:nectar/core/widgets/custom_textformfield.dart';
 
@@ -37,8 +38,8 @@ class ExploreProductsViewBody extends StatelessWidget {
               debugPrint(test);
             }),
           ),
-          const SizedBox(
-            height: 20,
+          const Gap(
+            20,
           ),
           Expanded(child: CustomGridView(categoriesItems: categoriesItems))
         ],
