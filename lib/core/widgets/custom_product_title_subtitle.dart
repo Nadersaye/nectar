@@ -5,12 +5,14 @@ import '../utils/styles.dart';
 
 class CustomProductTitleAndSubtitle extends StatelessWidget {
   const CustomProductTitleAndSubtitle(
-      {super.key, required this.title, required this.subTitle});
+      {super.key, required this.title, required this.type, required this.size});
   final String title;
-  final String subTitle;
+  final String type;
+  final num size;
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -23,7 +25,7 @@ class CustomProductTitleAndSubtitle extends StatelessWidget {
           height: 5,
         ),
         Text(
-          subTitle,
+          '$size $type, price',
           style: Styles.styleMagnoliaWhite16.copyWith(color: AppColors.grey),
         ),
       ],
