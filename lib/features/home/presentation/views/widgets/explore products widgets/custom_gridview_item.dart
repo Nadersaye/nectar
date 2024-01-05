@@ -12,9 +12,9 @@ class GridViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: AppColors.babyGreen,
+          //color: AppColors.babyGreen,
           borderRadius: BorderRadius.all(Radius.circular(18.r)),
-          border: Border.all(color: AppColors.oceanGreen)),
+          border: Border.all(color: AppColors.grey)),
       child: GridviewItemBody(
         categoryItem: categoryItem,
       ),

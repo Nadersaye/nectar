@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../../core/utils/app_routes.dart';
-import '../../../manager/get exclusive offer cubit/get_exclusive_offer_cubit.dart';
+import '../../../manager/get groceries/get_groceries_cubit.dart';
 import 'custom_shop_card.dart';
 
-class CustomExclusiveOfferListBody extends StatelessWidget {
-  const CustomExclusiveOfferListBody({
+class CustomGroceriesListBody extends StatelessWidget {
+  const CustomGroceriesListBody({
     super.key,
     required this.state,
   });
-  final GetExclusiveOfferSuccess state;
+  final GetGroceriesSuccess state;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 270,
-      child: CustomExclusiveOfferContentListBody(state: state),
+      child: CustomGroceriesContentListBody(state: state),
     );
   }
 }
 
-class CustomExclusiveOfferContentListBody extends StatelessWidget {
-  const CustomExclusiveOfferContentListBody({
+class CustomGroceriesContentListBody extends StatelessWidget {
+  const CustomGroceriesContentListBody({
     super.key,
     required this.state,
   });
 
-  final GetExclusiveOfferSuccess state;
+  final GetGroceriesSuccess state;
 
   @override
   Widget build(BuildContext context) {

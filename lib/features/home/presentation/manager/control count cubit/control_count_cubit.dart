@@ -4,11 +4,13 @@ import 'package:meta/meta.dart';
 part 'control_count_state.dart';
 
 class ControlCountCubit extends Cubit<ControlCountState> {
-  late int count;
-  num total = 0;
+  late num count;
+  late num total;
 
-  ControlCountCubit(int initialCount) : super(ControlCountInitial()) {
+  ControlCountCubit(num initialCount, num initialTotal)
+      : super(ControlCountInitial()) {
     count = initialCount;
+    total = initialTotal;
   }
 
   static ControlCountCubit get(context) => BlocProvider.of(context);
@@ -28,7 +30,7 @@ class ControlCountCubit extends Cubit<ControlCountState> {
   }
 
   void decrementCount({required num offerPrice, required num price}) {
-    if (count != 1) {
+    if (count != 0) {
       count--;
     }
     _changeTotal(offerPrice: offerPrice, price: price);
