@@ -35,7 +35,12 @@ class CustomShopCardImageBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        cachedMyNetworkImage(imageUrl: product.imageUrl),
+        cachedMyNetworkImage(
+            imageUrl: product.imageUrl ??
+                "https://demofree.sirv.com/nope-not-here.jpg",
+            height: MediaQuery.sizeOf(context).height / 2,
+            width: MediaQuery.sizeOf(context).width,
+            fit: BoxFit.fitHeight),
         PositionedDirectional(
           start: 0,
           top: 0,

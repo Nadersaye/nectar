@@ -25,7 +25,7 @@ class CustomShopCardBody extends StatelessWidget {
           title: product.title,
         ),
         Text(
-          '1 ${product.type}, price',
+          '${product.size} ${product.type}, price',
           style: Styles.styleGrey14.copyWith(color: AppColors.grey),
         ),
         const Spacer(),
