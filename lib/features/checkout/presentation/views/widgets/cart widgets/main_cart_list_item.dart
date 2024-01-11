@@ -6,11 +6,11 @@ import 'custom_listview_item.dart';
 class MainCartListViewItem extends StatelessWidget {
   const MainCartListViewItem({
     super.key,
-    required this.deleteItem,
+    //required this.deleteItem,
     required this.cartItem,
   });
 
-  final Function deleteItem;
+  //final Function deleteItem;
   final CartItemModel cartItem;
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class MainCartListViewItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CartListViewItem(
-          deleteItem: deleteItem,
+          // deleteItem: deleteItem,
           productItem: cartItem,
         ),
         const Divider(

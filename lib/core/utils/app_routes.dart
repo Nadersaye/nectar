@@ -9,7 +9,6 @@ import 'package:nectar/features/home/data/repos/shop_repo_imp.dart';
 import 'package:nectar/features/home/presentation/views/screens/product_details_view.dart';
 import 'package:nectar/features/profile/presentation/views/edit_account_view.dart';
 import 'package:nectar/features/profile/presentation/views/otp_view.dart';
-import 'package:nectar/features/test.dart';
 import '../../features/authentication/data/models/check_email_model.dart';
 import '../../features/authentication/presentation/manager/login cubit/login_cubit.dart';
 import '../../features/authentication/presentation/manager/login google cubit/login_google_cubit.dart';
@@ -194,12 +193,6 @@ abstract class AppRoutes {
         path: editAccountView,
         builder: (BuildContext context, GoRouterState state) {
           return const EditAccountView();
-        },
-      ),
-      GoRoute(
-        path: test,
-        builder: (BuildContext context, GoRouterState state) {
-          return const TestView();
         },
       ),
       GoRoute(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../../../core/utils/constants.dart';
 import '../../../../../../core/widgets/custom_button.dart';
+import '../../../../../home/presentation/manager/count total order cubit/count_total_order_cubit.dart';
 import '../../../manager/get carts cubit/get_carts_cubit.dart';
 import 'custom_checkout_price.dart';
 
@@ -13,10 +13,16 @@ class CartActionButton extends StatelessWidget {
   final Function() gotToCheckoutonTap;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetCartsCubit, GetCartsState>(
+    return BlocBuilder<CountTotalOrderCubit, CountTotalOrderState>(
       builder: (context, state) {
         return AnimatedOpacity(
-          opacity: gCarts!.isNotEmpty ? 1 : .2,
+          opacity: BlocProvider.of<CountTotalOrderCubit>(context)
+                      .cartItems!
+                      .isEmpty ||
+                  BlocProvider.of<CountTotalOrderCubit>(context).cartItems ==
+                      null
+              ? .2
+              : 1,
           duration: const Duration(milliseconds: 300),
           child: Stack(children: [
             CustomActionButton(

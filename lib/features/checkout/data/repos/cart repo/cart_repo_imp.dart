@@ -49,8 +49,8 @@ class CartRepoImp implements CartRepo {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        final documentId = querySnapshot.docs.first.id;
-        await _fb.collection(cartCollection).doc(documentId).delete();
+        //final documentId = querySnapshot.docs.first.id;
+        await _fb.collection(cartCollection).doc(cart.id).delete();
         return right(null); // Successful deletion, returning void
       } else {
         // Handle the case where the document with the specified userId is not found

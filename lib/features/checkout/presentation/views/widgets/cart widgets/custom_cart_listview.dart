@@ -1,4 +1,97 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:lottie/lottie.dart';
+import '../../../../../../core/models/cart_item_model.dart';
+import '../../../../../../core/utils/constants.dart';
+import '../../../../../home/presentation/manager/count total order cubit/count_total_order_cubit.dart';
+import '../../../manager/delete cart cubit/delete_cart_cubit.dart';
+import 'cart_shimmer_list_view.dart';
+import 'main_cart_list_item.dart';
+
+class CartListView extends StatefulWidget {
+  const CartListView({
+    super.key,
+  });
+  @override
+  State<CartListView> createState() => _CartListViewState();
+}
+
+class _CartListViewState extends State<CartListView> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  late List<CartItemModel> cartItems;
+  num total = 0;
+  changeTotal() {
+    BlocProvider.of<CountTotalOrderCubit>(context).cartItems = cartItems;
+    BlocProvider.of<CountTotalOrderCubit>(context).generalTotalPrice = total;
+    BlocProvider.of<CountTotalOrderCubit>(context).countTotal();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection(cartCollection)
+            .where("userId", isEqualTo: myuserId)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CartShimmerListview();
+          } else if (snapshot.hasData) {
+            cartItems = snapshot.data!.docs
+                .map((item) => CartItemModel.fromSnapShot(item))
+                .toList();
+            changeTotal();
+
+            log('user id : $myuserId');
+            log('success get');
+            return ListView.builder(
+                key: _listKey,
+                itemCount: snapshot.data!.docs.length,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: ((context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Slidable(
+                        startActionPane:
+                            ActionPane(motion: const BehindMotion(), children: [
+                          SlidableAction(
+                            onPressed: (context) async {
+                              await BlocProvider.of<DeleteCartCubit>(context)
+                                  .deleteCart(
+                                      cart: cartItems[index], userId: myuserId);
+                              log('success delete');
+                              log('${cartItems.length}');
+                            },
+                            icon: Icons.delete,
+                            backgroundColor: Colors.red,
+                            label: "Delete",
+                          ),
+                        ]),
+                        child: customFavoriteItem(index)),
+                  );
+                }));
+          } else if (snapshot.hasError) {
+            return const Text('error');
+          } else if (cartItems.isEmpty) {
+            return Lottie.asset('assets/animations/empty1.json');
+          }
+          return const Text('undefined');
+        });
+  }
+
+  Widget customFavoriteItem(int index) {
+    return Builder(
+      builder: (BuildContext context) => MainCartListViewItem(
+        cartItem: cartItems[index],
+      ),
+    );
+  }
+}
+
+/*import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -138,4 +231,4 @@ class _CartListViewState extends State<CartListView> {
               deleteItem: deleteItem, cartItem: carts[index]));
     });
   }
-}
+}*/

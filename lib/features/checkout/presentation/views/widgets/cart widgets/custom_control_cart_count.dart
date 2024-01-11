@@ -9,15 +9,19 @@ class CustomControlCartCount extends StatelessWidget {
   const CustomControlCartCount({
     super.key,
     required this.cart,
+    required this.addOnPressed,
+    required this.removeOnPressed,
   });
   final CartItemModel cart;
+  final Function()? addOnPressed;
+  final Function()? removeOnPressed;
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CustomCartIconRemove(
-          cart: cart,
+          removeOnPressed: removeOnPressed,
         ),
         const SizedBox(
           width: 10,
@@ -32,7 +36,7 @@ class CustomControlCartCount extends StatelessWidget {
           width: 10,
         ),
         CustomCartIconAdd(
-          cart: cart,
+          addOnPressed: addOnPressed,
         ),
         const Spacer(),
         CustomMyCartPrice(cart: cart)

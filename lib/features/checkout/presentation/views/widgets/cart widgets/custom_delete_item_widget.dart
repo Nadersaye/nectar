@@ -7,11 +7,11 @@ import '../../../../../home/presentation/views/widgets/product details widgets/c
 class CustomDeleteItem extends StatelessWidget {
   const CustomDeleteItem(
       {super.key,
-      required this.deleteItem,
+      //required this.deleteItem,
       required this.title,
       required this.type,
       required this.size});
-  final Function deleteItem;
+  //final Function deleteItem;
   final String title;
   final String type;
   final num size;
@@ -26,7 +26,8 @@ class CustomDeleteItem extends StatelessWidget {
           type: type,
           size: size,
         ),
-        IconDelete(deleteItem: deleteItem)
+        const IconDelete(//deleteItem: deleteItem
+            )
       ],
     );
   }
@@ -35,10 +36,10 @@ class CustomDeleteItem extends StatelessWidget {
 class IconDelete extends StatelessWidget {
   const IconDelete({
     super.key,
-    required this.deleteItem,
+    //required this.deleteItem,
   });
 
-  final Function deleteItem;
+  //final Function deleteItem;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class IconDelete extends StatelessWidget {
         color: AppColors.pinkSwan,
       ),
       onPressed: () {
-        deleteItem;
+        //deleteItem;
       },
     );
   }
